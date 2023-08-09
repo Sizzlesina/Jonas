@@ -1,0 +1,47 @@
+/** @format */
+
+@import url("https://fonts.googleapis.com/css?family=Press+Start+2P&display=swap");
+body {
+  font-family: "Press Start 2P", sans-serif;
+  color: #eee;
+  background-color: #222;
+}
+
+/* Custom Styles */
+
+.mt-custom {
+  margin-top: 6rem;
+}
+.w-custom {
+  width: 100%;
+}
+.bg-custom {
+  background: none;
+}
+/* Element Styles */
+
+.input-number {
+  width: 20rem;
+  font-family: inherit;
+  font-size: 5rem;
+}
+.check {
+  left: 12.5rem;
+  padding: 1rem 3rem;
+  transition: all 0.2s;
+}
+.check:active {
+  transform: translateY(2px);
+}
+.again:active {
+  transform: translateY(3px);
+  transition: all 0.2s;
+}
+.number {
+  background: #eee;
+  color: #333;
+  font-size: 5rem;
+  width: 10rem;
+  left: 50%;
+  transform: translate(-50%, 50%);
+}

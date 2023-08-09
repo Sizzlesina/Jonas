@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <title>Notes</title>
+</head>
+<body>
+
+  <header class="container">
+    <section class="d-flex flex-wrap justify-content-between align-items-center">
+      <button class="btn btn-light rounded-0 mt-3 px-4 py-3 again" type="reset">Again!</button>
+      <p>(Between 1 to 20)</p>
+    </section>
+    <section class="row">
+      <h1 class="text-center col-12">Guess My Number!</h1>
+    </section>
+  </header>
+  <section class="d-flex align-items-end">
+    <div class="border border-bottom border-white border-3 mt-custom w-custom"></div>
+    <div class="number position-absolute text-center">?</div>
+  </section>
+  <main class="container mt-5">
+    <section class="row">
+      <section class="col-12 col-md-6">
+        <input type="number" class="bg-custom d-block border border-white border-5 mt-5 ms-4 mb-3 position-relative text-center text-white input-number">
+        <button class="btn btn-light text-center position-absolute check rounded-0" type="button">Check!</button>
+      </section>
+      <section class="col-12 col-md-6 mt-5">
+        <h1 class="fs-5 ms-5 mt-5 mt-md-4 message">Start guessing...</h1>
+        <p class="mt-custom ms-5 fs-5">💯 Score: <span class="score">20</span></p>
+        <p class="ms-5 fs-5">🥇 Highscore:<span class="highscore"> 0</span></p>
+      </section>
+    </section>
+  </main>
+
+  <script src="assets/js/notes.js"></script>
+  <script src="assets/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
