@@ -1383,3 +1383,53 @@
 // }
 
 // ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+// // << Working with strings >>
+
+// 'use strict';
+// const airline = 'TAP Air Portugal';
+// const plane = 'A320';
+
+// console.log(plane[0]);
+// console.log(plane[1]);
+// console.log(plane[2]);
+// console.log('B737'[0]);
+
+// console.log(airline.length);
+// console.log('B737'.length);
+
+// console.log(airline.indexOf('r')); // strings are also 0 based
+// console.log(airline.lastIndexOf('r'));
+// console.log(airline.indexOf('Portugal'));
+
+// // Slice method
+// console.log(airline.slice(4)); // this will show the string after the 4 index
+// console.log(airline.slice(4, 7)); // this one will show the string from the 4th index to the 7th index
+// // the length of the second way of using the slice method is = 7 - 4 = 3 => length
+
+// console.log(airline.slice(0, airline.indexOf(' '))); // this will result as the first word of the string
+// console.log(airline.slice(airline.lastIndexOf(' ') + 1)); // this will result as the last word of the string
+
+// console.log(airline.slice(-2)); // we can do negative parameters for the slice method
+// console.log(airline.slice(1, -1)); // we can do negative end parameter
+
+// // Example : write a function that receives a airplane seat and log to the console wheter it is a middle seat or not
+
+// const checkMiddleSeat = function (seat) {
+//   // B and E are middle seats
+//   const s = seat.slice(-1); // this will start counting one from the right side
+//   if (s === 'B' || s === 'E') console.log('You got the middle seat 😁');
+//   else 
+//     console.log('You got lucky 😎, now i can fuck youre momma on the middle seat 🥰');
+//   ;
+// };
+// checkMiddleSeat('11B');
+// checkMiddleSeat('23C');
+// checkMiddleSeat('3E');
+
+// console.log(new String('jonas'));
+// console.log(typeof new String('jonas'));
+
+// console.log(typeof new String('jonas').slice(1));
+
+// ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
