@@ -1419,7 +1419,7 @@
 //   // B and E are middle seats
 //   const s = seat.slice(-1); // this will start counting one from the right side
 //   if (s === 'B' || s === 'E') console.log('You got the middle seat 😁');
-//   else 
+//   else
 //     console.log('You got lucky 😎, now i can fuck youre momma on the middle seat 🥰');
 //   ;
 // };
@@ -1433,3 +1433,96 @@
 // console.log(typeof new String('jonas').slice(1));
 
 // ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+// // << Working with strings pt 2 >>
+
+// 'use strict';
+// const airline = 'TAP Air Portugal';
+
+// console.log(airline.toLowerCase());
+// console.log(airline.toUpperCase());
+// // these methods will translate the stirng to lower case or to upper case
+
+// // Fix capitalization in name
+// const passenger = 'jOnAs'; // jonas
+// const passengerLower = passenger.toLowerCase();
+// const passengerCorrect =
+//   passengerLower[0].toUpperCase() + passengerLower.slice(1);
+// console.log(passengerCorrect);
+
+// // we could create an function for this
+
+// // Comparing Emails
+// const email = 'hello@jonas.io';
+// const loginEmail = 'Hello@jonas.Io \n';
+// const lowerEmail = loginEmail.toLowerCase(); // first step that we gonna do
+// const trimmedEmail = lowerEmail.trim(); // second step that we gonna do
+// console.log(trimmedEmail); // the result 1
+
+// const normalizedEmail = loginEmail.toLowerCase().trim(); // no we can do all the steps in just one step
+// console.log(normalizedEmail); // the result 2
+// console.log(email === normalizedEmail);
+// // now we can see that the results are exactly the same
+
+// // Replacing
+// const priceGB = '288,97#'; // we want to change the # sign to the $ sign and change the ',' with '.'
+// const priceUS = priceGB.replace('#', '$').replace(',', '.');
+// console.log(priceUS);
+
+// const announcment =
+//   'All passengers come to boarding door 23, Boarding door 23!';
+// console.log(announcment.replaceAll('door', 'gate')); // one way of replacing all the 'door's to 'gate'
+// console.log(announcment.replace(/door/g, 'gate')); // another way of replacing all the 'door's to 'gate'
+
+// // Booleans
+// const plane = 'Airbus A320neo';
+// console.log(plane.includes('A320')); // this will result as true
+// console.log(plane.includes('Boeing')); // this will result as fasle
+// console.log(plane.startsWith('Airb')); // this will check that our strings is start with??
+
+// if (plane.startsWith('Airbus') && plane.endsWith('neo')) {
+//   console.log('Part of the NEW Airbus family');
+// }
+
+// // Practice exercise
+// const checkBaggage = function (items) {
+//   const baggage = items.toLowerCase();
+//   if(baggage.includes('knife') || baggage.includes('gun'))
+//   console.log('You are NOT allowed on board');
+// else
+// console.log('Welcome abroad');
+// };
+// checkBaggage('I have a laptop, some food and a pocket Knife');
+// checkBaggage('Socks and camera');
+// checkBaggage('Got some snacks and a gun for protection');
+
+// ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+// << Working with strings pt 3 >>
+
+'use strict';
+
+// Split
+console.log('a+very+nice+string'.split('+'));
+console.log('Jonas Schmedtmann'.split(' '));
+
+const [firstName, lastName] = 'Jonas Schmedtmann'.split(' ');
+
+const newName = ['Mr', firstName, lastName.toUpperCase()].join(' ');
+console.log(newName);
+
+const capitalizeName = function (name) {
+  const names = name.split(' ');
+  const namesUpper = [];
+
+  for (const n of names) {
+    namesUpper.push(n[0].toUpperCase() + n.slice(1));
+  }
+  console.log(namesUpper.join(' '));
+};
+
+capitalizeName('jessica ann smith davis');
+capitalizeName('jonas schmedtmann');
+
+// 8 minute of the video has been watched
+
