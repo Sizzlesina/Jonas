@@ -1498,31 +1498,62 @@
 
 // ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-// << Working with strings pt 3 >>
+// // << Working with strings pt 3 >>
 
-'use strict';
+// 'use strict';
 
-// Split
-console.log('a+very+nice+string'.split('+'));
-console.log('Jonas Schmedtmann'.split(' '));
+// // Split
+// console.log('a+very+nice+string'.split('+'));
+// console.log('Jonas Schmedtmann'.split(' '));
 
-const [firstName, lastName] = 'Jonas Schmedtmann'.split(' ');
+// const [firstName, lastName] = 'Jonas Schmedtmann'.split(' ');
 
-const newName = ['Mr', firstName, lastName.toUpperCase()].join(' ');
-console.log(newName);
+// const newName = ['Mr', firstName, lastName.toUpperCase()].join(' ');
+// console.log(newName);
+// // writing a function to capitalize the first letter of the strings
+// const capitalizeName = function (name) {
+//   const names = name.split(' ');
+//   const namesUpper = [];
 
-const capitalizeName = function (name) {
-  const names = name.split(' ');
-  const namesUpper = [];
+//   for (const n of names) {
+//     // namesUpper.push(n[0].toUpperCase() + n.slice(1));
+//     // a diffrent way:
+//     namesUpper.push(n.replace(n[0], n[0].toUpperCase()));
+//   }
+//   console.log(namesUpper.join(' '));
+// };
 
-  for (const n of names) {
-    namesUpper.push(n[0].toUpperCase() + n.slice(1));
-  }
-  console.log(namesUpper.join(' '));
-};
+// capitalizeName('jessica ann smith davis');
+// capitalizeName('jonas schmedtmann');
 
-capitalizeName('jessica ann smith davis');
-capitalizeName('jonas schmedtmann');
+// // Padding the string: to add a number of characters to the string until the string has a certain desired length
+// const message = 'Go to gate 23';
+// console.log(message.padStart(25,'+').padEnd(30,'+')); // after the message that reached 25 character the string padding will be continued till the 35 character 
+// console.log('Jonas'.padStart(25,'+').padEnd(30,'+'));
 
-// 8 minute of the video has been watched
+// const maskCreditCard = function(number){
+//   const string = number + ''; // this will convert the number to a string 
+//   // const string = String(number); // we could do it like this but the way above was better
+//   const last = string.slice(-4);
+//   return last.padStart(string.length, '*'); 
+// }
 
+// console.log(maskCreditCard(12345678));
+// console.log(maskCreditCard(52135253462756858585));
+// console.log(maskCreditCard('518957198758917519759'));
+// // this piece of code will work yeah!😄
+
+// // Repeat method: this will allow us to repeat the same string multiple times
+// const message2 = 'Bad weather... All Departues Delayed...';
+// console.log(message2.repeat(5)); // this will repeat the message 5 times
+
+// const planesInLine = function (n){
+//   console.log(`There are ${n} planes in line ${'✈️'.repeat(n)}`);
+// }
+// planesInLine(5);
+// planesInLine(3);
+// planesInLine(12);
+
+// // this piece of code is actully work too! (honestly IDGAF but whatever)😑
+
+// ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
