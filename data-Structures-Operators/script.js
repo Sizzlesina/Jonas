@@ -1528,14 +1528,14 @@
 
 // // Padding the string: to add a number of characters to the string until the string has a certain desired length
 // const message = 'Go to gate 23';
-// console.log(message.padStart(25,'+').padEnd(30,'+')); // after the message that reached 25 character the string padding will be continued till the 35 character 
+// console.log(message.padStart(25,'+').padEnd(30,'+')); // after the message that reached 25 character the string padding will be continued till the 35 character
 // console.log('Jonas'.padStart(25,'+').padEnd(30,'+'));
 
 // const maskCreditCard = function(number){
-//   const string = number + ''; // this will convert the number to a string 
+//   const string = number + ''; // this will convert the number to a string
 //   // const string = String(number); // we could do it like this but the way above was better
 //   const last = string.slice(-4);
-//   return last.padStart(string.length, '*'); 
+//   return last.padStart(string.length, '*');
 // }
 
 // console.log(maskCreditCard(12345678));
@@ -1557,3 +1557,4 @@
 // // this piece of code is actully work too! (honestly IDGAF but whatever)😑
 
 // ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
