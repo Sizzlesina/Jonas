@@ -1384,7 +1384,7 @@
 
 // ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-// // << Working with strings >>
+// // << Working with strings pt 1 >>
 
 // 'use strict';
 // const airline = 'TAP Air Portugal';
@@ -1456,7 +1456,7 @@
 // const email = 'hello@jonas.io';
 // const loginEmail = 'Hello@jonas.Io \n';
 // const lowerEmail = loginEmail.toLowerCase(); // first step that we gonna do
-// const trimmedEmail = lowerEmail.trim(); // second step that we gonna do
+// const trimmedEmail = lowerEmail.trim(); // second step that we gonna do => the trim method will remove the extra spaces 
 // console.log(trimmedEmail); // the result 1
 
 // const normalizedEmail = loginEmail.toLowerCase().trim(); // no we can do all the steps in just one step

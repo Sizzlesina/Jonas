@@ -48,13 +48,26 @@ GOOD LUCK 😉
 
 const textarea = document.createElement('textarea');
 const button = document.createElement('button');
-const text = textarea.value;
-document.body.append(textarea,button);
+document.body.append(textarea, button);
 button.className = 'btn btn-success mt-1 w-100';
-button.textContent = 'Click me!'; 
+button.textContent = 'Click me!';
 textarea.className = 'form-control mt-3';
 
-const camelCase = function (){
-  text = 
-}
-button.addEventListener('click',camelCase)
+const camelCase = function () {
+  const text = textarea.value;
+  const rows = text.split('\n');
+  for (const [i, row] of rows.entries()) {
+    // console.log(i,row);
+    const [first, second] = row.toLowerCase().trim().split('_');
+    console.log(first,second);
+    const output = `${first}${second.replace(
+      second[0],
+      second[0].toUpperCase()
+    )}`;
+    console.log(`${output.padEnd(20)} ${'✅'.repeat(i + 1)}`);
+  }
+};
+
+button.addEventListener('click', camelCase);
+
+// this part is so IMPORTANT!
