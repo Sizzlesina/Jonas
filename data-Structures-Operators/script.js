@@ -1456,7 +1456,7 @@
 // const email = 'hello@jonas.io';
 // const loginEmail = 'Hello@jonas.Io \n';
 // const lowerEmail = loginEmail.toLowerCase(); // first step that we gonna do
-// const trimmedEmail = lowerEmail.trim(); // second step that we gonna do => the trim method will remove the extra spaces 
+// const trimmedEmail = lowerEmail.trim(); // second step that we gonna do => the trim method will remove the extra spaces
 // console.log(trimmedEmail); // the result 1
 
 // const normalizedEmail = loginEmail.toLowerCase().trim(); // no we can do all the steps in just one step
@@ -1558,3 +1558,26 @@
 
 // ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+// // << String Methods Practice >>
+
+// const flights =
+//   '_Delayed_Departure;fao93766109;tx12133758440;11:25+ _Arrival;bru09433844722;fao93766109;11:45+_Delayed_Arrival;hel7439299980;fao93766109;12:05+ _Departure;fao93766109;lis2323639855;12:30';
+
+// //  Delayed Departure from FAQ to TXL (11h25)
+// //        Arrival from BRU to FAQ (11h45)
+// //  Delayed Arrival from HEL to FAQ (12h05)
+// //    Deprature from FAQ to LIS (12h30)
+
+// const getCode = str => str.slice(0, 3).toUpperCase();
+// for (const flight of flights.split('+')) {
+//   const [type, from, to, time] = flight.split(';');
+//   const output = `${type.startsWith('_Delayed') ? '🔴' : ''}${type.replaceAll(
+//     '_',
+//     ' '
+//   )} ${getCode(from)} ${getCode(to)} (${time.replace(':', 'h')})`.padStart(36);
+//   console.log(output);
+// }
+
+// // nice and easy 😀(not really)
+
+// ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
