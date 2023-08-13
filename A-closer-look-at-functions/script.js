@@ -182,10 +182,71 @@ function count () {
 // greet("Hello")("jonas"); // the first value is for the main function adn the second one is for the function inside the main function
 
 // try to rewrite the greet function using the arrow function
-// const greet = (greeting) => (name) => 
+// const greet = (greeting) => (name) =>
 //   console.log(`${greeting} ${name}`);
 // ;
 // greet("Hello")("jonas");
+
+// ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------]
+
+// // << The Call and Apply Methods >>
+
+// // we're gonna go back to the this keyword and set the this keyword manualy
+
+// const lufthansa = {
+//   airline: "Lufthansa",
+//   iataCode: "LH",
+//   bookings: [],
+//   book(flightNum, name) {
+//     console.log(
+//       `${name} booked a seat on ${this.airline} flight ${this.iataCode}${flightNum}`
+//     );
+//     this.bookings.push({ flight: `${this.iataCode}${flightNum}`, name });
+//   },
+// };
+
+// lufthansa.book(239, "Jonas Schmedtmann");
+// lufthansa.book(635, "John Smith");
+// console.log(lufthansa);
+
+// const eurowings = {
+//   airline: "Eurowings",
+//   iataCode: "EW",
+//   bookings: [],
+// };
+
+// // this line of code will copy the information of the fucntion inside a variable and we wont be able to use the this keyword for it
+// const book = lufthansa.book;
+// // book(23, "Sarah Williams");
+
+// // so here's the solution:
+// // Call method
+// // in the CALL METHOD we will tell to the variable that which function or object we gonna use and give it the values to use the this keyword in that function
+// book.call(eurowings,23,"Sarah Williams");
+// console.log(eurowings);
+// // now in here we can use the this keyword for each of the objects 
+
+// book.call(lufthansa,239,"Mary Copper");
+// console.log(lufthansa);
+
+// const swiss = {
+//   airline : "Swiss Air Lines",
+//   iataCode : "LX",
+//   bookings: [],
+// }
+// book.call(swiss,583,"Mary Cooper");
+// console.log(swiss);
+
+// // Apply method
+// // in the apply method we will store the data into an variable then we pass the apply method two arguments
+// // 1. the function or object that we're gonna use the this keyword in it
+// // 2. the data that we gonna send to it
+// const flightData = [583,"George Cooper"];
+// book.apply(swiss,flightData); // this line is not used anymore
+// console.log(swiss);
+
+// book.call(swiss,...flightData); // this is the replaced way
+// // the ...flightData to take the data out of flightData
 
 // ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------]
 
