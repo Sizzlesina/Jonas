@@ -74,7 +74,6 @@
 // console.log(flight);
 // console.log(jonas);
 
-
 // // is the same as doing...
 // const flightNum = flight;
 // const passenger = jonas;
@@ -133,5 +132,60 @@ function count () {
   };
 }
 // in the last function count is a HIGHER_ORDER_FUNCTION and the function inside of this function is a RETURNED_FUNCTION
+*/
 
 // ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------]
+
+// // << Functions Accepting Callback Functions >>
+
+// const oneWord = function (str) {
+// return str.replace(/ /g,'').toLowerCase();
+// };
+// const upperFirstWord = function (str) {
+//   const [first, ...others] = str.split(" ");
+//   return [first.toUpperCase(), ...others].join(" ");
+// };
+
+// // HIGHER_ORDER_FUNCTION
+// const transforrmer = function(str,fn){
+//   console.log(`Original string : ${str}`);
+//   console.log(`Transformed string: ${fn(str)}`);
+
+//   console.log(`Transformed by: ${fn.name}`);
+// }
+// transforrmer("Javascript is the best",upperFirstWord);
+
+// transforrmer("Javascript is the best",oneWord);
+
+// const high5 = function(){
+//   console.log('✋');
+// };
+// document.body.addEventListener('click',high5);
+// ['Jonas','Martha','Adam'].forEach(high5);
+
+// ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------]
+
+// // << Functions Returning Functions >>
+
+// const greet = function (greeting) {
+//   return function (name) {
+//     console.log(`${greeting} ${name}`);
+//   };
+// };
+
+// // we can log this function to the console like this:
+// const greeterHey = greet("Hey"); // this will store the value to the function inside the greet function
+// greeterHey("Steven"); // this will store the value into the main funciton parameters
+// greeterHey("Jonas");
+
+// // another way of loggin this function to the console
+// greet("Hello")("jonas"); // the first value is for the main function adn the second one is for the function inside the main function
+
+// try to rewrite the greet function using the arrow function
+// const greet = (greeting) => (name) => 
+//   console.log(`${greeting} ${name}`);
+// ;
+// greet("Hello")("jonas");
+
+// ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------]
+
