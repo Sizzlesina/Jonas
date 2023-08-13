@@ -24,21 +24,21 @@
 // createBooking('LH123');
 // console.log(bookings);
 
-// now we want to write the new way of setting the default parameters:
-"use strict";
-const bookings = [];
-const createBooking = function (flightNum, numPassengers = 1, price = 199) {
-  const booking = {
-    flightNum,
-    numPassengers,
-    price,
-  }; // this object is like an constructor
-  console.log(booking);
-  bookings.push(booking);
-};
-createBooking("LH123");
-createBooking("Lh123", 2, 800);
-console.log(bookings);
+// // now we want to write the new way of setting the default parameters:
+// "use strict";
+// const bookings = [];
+// const createBooking = function (flightNum, numPassengers = 1, price = 199) {
+//   const booking = {
+//     flightNum,
+//     numPassengers,
+//     price,
+//   }; // this object is like an constructor
+//   console.log(booking);
+//   bookings.push(booking);
+// };
+// createBooking("LH123");
+// createBooking("Lh123", 2, 800);
+// console.log(bookings);
 // now we set an default value for the parameters and then log it to the console
 
 // // if we write the parameters like this its not correct:
