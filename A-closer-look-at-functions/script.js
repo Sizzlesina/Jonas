@@ -5,7 +5,7 @@
 // // << Default Parameters >>
 
 // 'use strict';
-// // some function without the default parameters
+// // some function with default parameters
 // const bookings = [];
 // const createBooking = function(flightNum,numPassengers,price){
 //   // the old way of setting default parameters:
@@ -39,7 +39,7 @@
 // createBooking("LH123");
 // createBooking("Lh123", 2, 800);
 // console.log(bookings);
-// now we set an default value for the parameters and then log it to the console
+// // now we set an default value for the parameters and then log it to the console
 
 // // if we write the parameters like this its not correct:
 // const createBookingWrong = function(flightNum, price = 199 * numPassengers , numPassengers){ // in here we set the default value for price but we need the numPassengers
@@ -57,14 +57,14 @@
 
 // // << How Passing Arguments Works_Value vs. Refrence >>
 
-// ("use strict");
+// 'use strict';
 // const flight = "LH234";
 // const jonas = {
 //   name: "Jonas Schmedtmann",
 //   passport: 24739479284,
 // };
 // const checkIn = function (flightNum, passenger) {
-//   flightNum = "LH999";
+//   flightNum = "LH999"; // in here we set a default value for the first parameter that wont work
 //   passenger.name = `Mr. ${passenger.name}`;
 
 //   if (passenger.passport === 24739479284) alert("Check in");
@@ -75,8 +75,8 @@
 // console.log(jonas);
 
 // // is the same as doing...
-// const flightNum = flight;
-// const passenger = jonas;
+// // const flightNum = flight;
+// // const passenger = jonas;
 
 // // Now we want to create a new function which will change the passport number of the passenger
 // const newPassport = function (person){
@@ -85,7 +85,7 @@
 // newPassport(jonas);
 // checkIn(flight,jonas);
 
-// ------------`----------------------------------------------------------------------------------------------------------------------------------------------------------------------]
+// ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------]
 
 // << First class and Higher order function >>
 
@@ -109,7 +109,7 @@ Pass function as argument to OTHER functions:
 const greet = () => console.log("Hey jonas!")
 btnClose.addEventListener("click",greet)
 
-RETURN FUNCTION FROM DOM
+👉RETURN FUNCTION FROM DOM
 
 Call methods of functions:
 counter.inc.bind(someOtherObject);
@@ -163,7 +163,7 @@ function count () {
 // document.body.addEventListener('click',high5);
 // ['Jonas','Martha','Adam'].forEach(high5);
 
-// ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------]
+// // ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------]
 
 // // << Functions Returning Functions >>
 
@@ -179,13 +179,15 @@ function count () {
 // greeterHey("Jonas");
 
 // // another way of loggin this function to the console
-// greet("Hello")("jonas"); // the first value is for the main function adn the second one is for the function inside the main function
+// greet("Hello")("jonas"); // the first value is for the main function and the second one is for the function inside the main function
 
-// try to rewrite the greet function using the arrow function
-// const greet = (greeting) => (name) =>
-//   console.log(`${greeting} ${name}`);
-// ;
-// greet("Hello")("jonas");
+// // try to rewrite the greet function using the arrow function
+// const greet1 = (greeting) => (name) => console.log(`${greeting} ${name}`);
+
+// const greeterHello = greet1("Hello1");
+// greeterHello("Sina");
+
+// greet1("Hello1")("jonas");
 
 // ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------]
 
@@ -250,78 +252,150 @@ function count () {
 
 // ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------]
 
-// << The Bind Method >>
+// // << The Bind Method >>
 
-"use strict";
-const lufthansa = {
-  airline: "Lufthansa",
-  iataCode: "LH",
-  bookings: [],
-  book(flightNum, name) {
-    console.log(
-      `${name} booked a seat on ${this.airline} flight ${this.iataCode}${flightNum}`
-    );
-    this.bookings.push({ flight: `${this.iataCode}${flightNum}`, name });
-  },
-};
-const eurowings = {
-  airline: "Eurowings",
-  iataCode: "EW",
-  bookings: [],
-};
-const swiss = {
-  airline: "Swiss Air Lines",
-  iataCode: "LX",
-  bookings: [],
-};
-const book = lufthansa.book;
-// so in here we will just set the this keyword into an variable
-const bookEW = book.bind(eurowings);
-const bookLH = book.bind(lufthansa);
-const bookLX = book.bind(swiss);
-// now in here using the this keyword of the variable we will be able to set a value for the function
-bookEW(23, "Steven Williams");
+// "use strict";
+// const lufthansa = {
+//   airline: "Lufthansa",
+//   iataCode: "LH",
+//   bookings: [],
+//   book(flightNum, name) {
+//     console.log(
+//       `${name} booked a seat on ${this.airline} flight ${this.iataCode}${flightNum}`
+//     );
+//     this.bookings.push({ flight: `${this.iataCode}${flightNum}`, name });
+//   },
+// };
+// const eurowings = {
+//   airline: "Eurowings",
+//   iataCode: "EW",
+//   bookings: [],
+// };
+// const swiss = {
+//   airline: "Swiss Air Lines",
+//   iataCode: "LX",
+//   bookings: [],
+// };
+// const book = lufthansa.book;
+// // so in here we will just set the this keyword into an variable
+// const bookEW = book.bind(eurowings);
+// const bookLH = book.bind(lufthansa);
+// const bookLX = book.bind(swiss);
+// // now in here using the this keyword of the variable we will be able to set a value for the function
+// bookEW(23, "Steven Williams");
 
-// now we keep the "23" and reserve two 23 flight for diffrent passengers
-// in the bind method the argument will be set in stoned
-const bookEW23 = book.bind(eurowings, 23);
-bookEW23("Jonas Schemedtmann");
-bookEW23("Martha Cooper");
+// // now we keep the "23" and reserve two 23 flight for diffrent passengers
+// // in the bind method the argument will be set in stoned
+// const bookEW23 = book.bind(eurowings, 23);
+// bookEW23("Jonas Schemedtmann");
+// bookEW23("Martha Cooper");
 
-// With Event Listeners
-lufthansa.planes = 300;
-lufthansa.buyPlane = function () {
-  console.log(this);
+// // With Event Listeners
+// lufthansa.planes = 300;
+// lufthansa.buyPlane = function () {
+//   console.log(this);
 
-  this.planes++;
-  console.log(this.planes);
-};
-document.querySelector(".buy").addEventListener("click", lufthansa.buyPlane);
-// now these line of codes will return a NaN and that's because the this keyword will point to the button
-// here's the solution:
-document
-  .querySelector(".buy")
-  .addEventListener("click", lufthansa.buyPlane.bind(lufthansa));
+//   this.planes++;
+//   console.log(this.planes);
+// };
+// document.querySelector(".buy").addEventListener("click", lufthansa.buyPlane);
+// // now these line of codes will return a NaN and that's because the this keyword will point to the button
+// // here's the solution:
+// document
+//   .querySelector(".buy")
+//   .addEventListener("click", lufthansa.buyPlane.bind(lufthansa));
 
-// Partial Application
-  const addTax = (rate,value) => value + value * rate;
-  console.log(addTax(0.1,200));
+// // Partial Application
+// const addTax = (rate, value) => value + value * rate;
+// console.log(addTax(0.1, 200));
 
-  const addVAT = addTax.bind(null,0.25); // now in this line of code we set the rate in stoned
-  // addVAT = value => value + value * 0.25
+// const addVAT = addTax.bind(null, 0.25); // now in this line of code we set the rate in stoned
+// // addVAT = value => value + value * 0.25
 
+// console.log(addVAT(100));
+// console.log(addVAT(23));
 
-  console.log(addVAT(100));
-  console.log(addVAT(23));
-  
-  const addTaxRate = function(rate){
-    return function(value){
-      return value + value * rate;
-    }
-  }
-  const addVAT2 = addTaxRate(0.23);
-  console.log(100);
-  console.log(23);
-// im sleepy man might just go take some rest
+// const addTaxRate = function (rate) {
+//   return function (value) {
+//     return value + value * rate;
+//   };
+// };
+// const addVAT2 = addTaxRate(0.23);
+// console.log(100);
+// console.log(23);
 
 // ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------]
+
+// // << A Test For Myself >>
+// ("use strict");
+// const lufthansa = {
+//   airline : "Lufthansa",
+//   iataCode : "LH",
+//   bookings : [],
+// }
+// const euroWings = {
+//   airline : "Eurowings",
+//   iataCode : "EW",
+//   bookings : [],
+// }
+// const swiss = {
+//   ariline : "Swiss",
+//   iataCode : "LX",
+//   bookings : [],
+// }
+// const book = function (flightNum,name){
+//   console.log(`${name} booked a seat on ${this.airline} flight ${this.iataCode}${flightNum}`);
+//   this.bookings.push({ flight: `${this.iataCode}${flightNum}`, name });
+// }
+// book.bind(lufthansa,23,'Sina');
+
+// const person1 = {
+//   fName: "",
+//   lastName: "",
+//   info: [],
+// };
+
+// const person2 = {
+//   fName: "",
+//   lastName: "",
+//   info: [],
+// };
+
+// const completeInfo = function (firstName, lastName, obj) {
+//   obj.fName = firstName;
+//   obj.lastName = lastName;
+//   obj.info.push({ information: `${obj.fName} ${obj.lastName}` });
+//   console.log(
+//     `First Name: ${obj.fName}, Last Name: ${obj.lastName}, Info: ${obj.info[0].information}`
+//   );
+// };
+
+// const info1 = completeInfo.bind(null, "sina", "pooshideroo", person1);
+// info1("sina", "pooshideroo");
+
+// const person1 = {
+//   fName: "",
+//   lastName: "",
+//   info: [],
+// };
+
+// const person2 = {
+//   fName: "",
+//   lastName: "",
+//   info: [],
+// };
+
+// function completeInfo(firstName, lastName) {
+//   this.fName = firstName;
+//   this.lastName = lastName;
+//   this.info.push({ information: `${this.fName} ${this.lastName}` });
+//   console.log(
+//     `First Name: ${this.fName}, Last Name: ${this.lastName}, Info: ${this.info[0].information}`
+//   );
+// }
+
+// const info1 = completeInfo.bind(person1);
+// info1('sina','pooshideroo');
+
+// ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------]
+
