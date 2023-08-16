@@ -399,3 +399,141 @@ function count () {
 
 // ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------]
 
+// "use strict";
+// const person1 = {
+//   name: "",
+//   lName: "",
+//   age: null,
+// };
+// const person2 = {
+//   name: "",
+//   lName: "",
+//   age: null,
+// };
+// const editInfo = function (obj, ...values) {
+//   const value = values.join(" ").split(" ");
+//   const keys = Object.keys(obj);
+//   for (let i = 0; i < keys.length; i++) {
+//     obj[keys[i]] = value[i] || null;
+//   }
+// };
+// editInfo(person1,"John","Smith",23)
+// editInfo(person2,"Sina","Pooshideroo",20);
+// console.log(person1);
+// console.log(person2);
+// // in this piece of code we have two objects with properties that have an empty value then we are passing the values of the object to it using an function and a for loop
+// // this is just a reminder of what i taught previously
+
+// ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------]
+
+// // << Coding Challenge #1 >>
+// /*
+// Lets build a simple poll app!
+
+// A poll has a question, an array of options from which
+// people can choose, and an array with the number of 
+// replies for each option. This data is stored in the 
+// starter object below.
+
+
+// Here are your tasks:
+// 1. Create a method called 'registerNewAnswer' on the 
+// 'poll' object. The method does 2 things:
+// 1.1. Display a prompt window for the user to input 
+// the number of the selected option. The propmpt
+// should look like this:
+//   What is your favourite programming language?
+//   0: JavaScript
+//   1: Python
+//   2: Rust
+//   3: C++
+//   (Write option number)
+
+
+//   1.2. Based on the input number, update the answers
+//   array, For example if the option is 3, Increase
+//   the value AT POSITION 3 of the array by 1. Make
+//   sure to check if the input is a number and if the
+//   number makes sense (e.g answer 52 wouldn't make 
+//   sense right?)
+
+// 2. Call this method whenever the user clicks the "Answer poll" button
+
+// 3. Create a method 'displayResults' which displays
+// the poll results. The method takes a string as an 
+// input (called 'type'), which can be either 'string'
+// or 'array'. If type is 'array', simply display the 
+// results array as it is, using console.log(). This
+// should be the default option. If type is 'string'
+// display a string like 'Poll results are 13, 2, 4 ,1'.
+
+// 4. Run the 'displayResults' method at the end of each
+// 'registerNewAnswer' method call.
+
+// HINT: Use many of the tools you learned about in this 
+// and the last lecture
+
+// BONUS: Use the 'displayResults' method to display the
+// 2 arrays in the test data. Use both the 'array' and
+// the 'string' option. DO NOT put the arrays in the
+// poll object! So what should the this keyword look like
+// in this situation?
+
+// GOOD LUCK😉
+// */
+// const pollButton = document.querySelector(".poll");
+// const poll = {
+//   question: "What is your favourite programming language?",
+//   options: ["0: JavaScript", "1: Python", "2: Rust", "3: C++"],
+//   answers: new Array(4).fill(0),
+//   registerNewAnswer() {
+//     const answer = Number(
+//       prompt(
+//         `${this.question}\n${this.options.join("\n")}\n(Write option number)`
+//       )
+//     );
+//     typeof answer === "number" &&
+//       answer < this.answers.length &&
+//       this.answers[answer]++;
+      
+//       this.displayResults();
+//       this.displayResults('string');
+//   },
+//   displayResults(type = 'array'){
+//     if(type === 'array')
+//     console.log(this.answers);
+//   else if(type === 'string'){
+//     console.log(`Poll results are ${this.answers.join(', ')}`);
+//   }
+//   }
+// };
+// pollButton.addEventListener("click", poll.registerNewAnswer.bind(poll));
+// poll.displayResults.call({answers: [5,2,3]},'string');
+
+// ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------]
+
+// // << Immediately Invoked Function Expressions (IIFE) >>
+// const runOnce = function(){
+//   console.log(`This will never run again!`);
+// }
+// runOnce();
+
+// // Function form IIFE
+// (function(){
+//   console.log(`This will never run again!`);
+//   // const isPrivate = 23;
+// })();
+
+// // console.log(isPrivate); // //  in the IIFE functions we can have access to the variables in global scope but the global scope can't use the variables inside the IIFE
+
+// // Arrow form IIFE
+// (() => console.log(`This will ALSO never run again!`))();
+
+// {
+//   const isPrivate = 23;
+//   var notPrivate = 46; // the var variables can be used outside the scope
+// }
+// // when we create an scope like this still inside the scope we can have access to the global but in global we can't have access to inside the scope
+
+// ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------]
+
