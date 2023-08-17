@@ -604,8 +604,8 @@ function count () {
 
 // // << Coding Challenge #2 >>
 
-// /* 
-// this is more of a thinking challenge than a coding 
+// /*
+// this is more of a thinking challenge than a coding
 // challenge 🥸
 
 // Take the IIFE below and at the end of the function,
