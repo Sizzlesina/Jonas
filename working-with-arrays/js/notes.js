@@ -1,6 +1,5 @@
 /** @format */
 
-
 // << PROJECT _Bankist_App >>
 // Part 1
 
@@ -109,9 +108,9 @@ console.log(accounts);
 // << Part 3 >>
 // << Adding a calcPrint function using reduce method >>
 
-const calcDisplayBalance = function (movements) {
-  const balance = movements.reduce((acc, mov) => acc + mov, 0);
-  labelBalance.textContent = `${balance} EUR`;
+const calcDisplayBalance = function (acc) {
+  acc.balance = acc.movements.reduce((acc, mov) => acc + mov, 0);
+  labelBalance.textContent = `${acc.balance} EUR`;
 };
 
 //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -124,17 +123,16 @@ const calcDisplaySummary = function (acc) {
     .filter((mov) => mov > 0)
     .reduce((acc, mov) => acc + mov, 0);
   labelSumIn.textContent = `${incomes}€`;
+
   const outcomes = acc.movements
     .filter((mov) => mov < 0)
     .reduce((acc, mov) => acc + mov, 0);
   labelSumOut.textContent = `${Math.abs(outcomes)}€`;
+
   const interest = acc.movements
     .filter((mov) => mov > 0)
     .map((deposit) => (deposit * acc.interestRate) / 100)
-    .filter((int, i, arr) => {
-      console.log(arr);
-      return int >= 1;
-    })
+    .filter((int, i, arr) => int >= 1)
     .reduce((acc, int) => acc + int, 0);
   labelSumInterest.textContent = `${interest}€`;
 };
@@ -146,6 +144,14 @@ const calcDisplaySummary = function (acc) {
 
 // Event handler
 let currentAccount;
+const updateUI = function (acc) {
+  // Display movements
+  displayMovements(acc.movements);
+  // Display balance
+  calcDisplayBalance(acc);
+  // Display summary
+  calcDisplaySummary(acc);
+};
 btnLogin.addEventListener("click", function (e) {
   // prevent form from submitting
   e.preventDefault();
@@ -162,14 +168,112 @@ btnLogin.addEventListener("click", function (e) {
     containerApp.style.opacity = 100;
     // Clear input fields
     inputLoginUsername.value = inputLoginPin.value = "";
-    // Display movements
-    displayMovements(currentAccount.movements);
-    // Display balance
-    calcDisplayBalance(currentAccount.movements);
-    // Display summary
-    calcDisplaySummary(currentAccount);
+    // update UI
+    updateUI(currentAccount);
   } else alert("Wrong Password!");
 });
+
+//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+// << Part 6>>
+// Impelementing Transfer >>
+const clearInput = function (input1, input2) {
+  input1.value = input2.value = "";
+};
+btnTransfer.addEventListener("click", function (e) {
+  e.preventDefault();
+  const amount = Number(inputTransferAmount.value);
+  const receiverAcc = accounts.find(
+    (acc) => acc.username === inputTransferTo.value
+  );
+
+  if (
+    amount > 0 &&
+    receiverAcc &&
+    currentAccount.balance >= amount &&
+    receiverAcc?.username !== currentAccount.username
+  ) {
+    const question = prompt(
+      `Are you sure that you want to transfer ${amount}€ to ${receiverAcc.owner} Y/N`
+    );
+    if (question === "Y" || question === "y") {
+      currentAccount.movements.push(-amount);
+      receiverAcc.movements.push(amount);
+      // update UI
+      updateUI(currentAccount);
+      alert("Transfer completed!");
+      clearInput(inputTransferAmount, inputTransferTo);
+    } else if (question === "N" || question === "n") {
+      alert("Transfer cancelled!");
+      clearInput(inputTransferAmount, inputTransferTo);
+    } else {
+      alert("Wrong answer!");
+      clearInput(inputTransferAmount, inputTransferTo);
+    }
+  }
+});
+// changed the piece of codes by my own so i think the application will work better
+
+//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+// Part 7
+// The findIndex Method >>
+
+btnClose.addEventListener("click", function (e) {
+  e.preventDefault();
+
+  if (
+    inputCloseUsername.value === currentAccount.username &&
+    Number(inputClosePin.value) === currentAccount.pin
+  ) {
+    const index = accounts.findIndex(
+      (acc) => acc.username === currentAccount.username
+    );
+    console.log(index);
+    // Delete Account
+    accounts.splice(index, 1);
+    // Hide UI
+    containerApp.style.opacity = 0;
+  }
+  clearInput(inputCloseUsername, inputClosePin);
+  labelWelcome.textContent = "Login to get started";
+});
+
+//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+// Part 8
+// Create Loan part of our app
+
+btnLoan.addEventListener("click", function (e) {
+  e.preventDefault();
+
+  const amount = Number(inputLoanAmount.value);
+
+  if (
+    amount > 0 &&
+    currentAccount.movements.some((mov) => mov >= amount * 0.1)
+  ) {
+    // Add movement
+    currentAccount.movements.push(amount);
+
+    // Update UI
+    updateUI(currentAccount);
+  } else alert("The loan amount is not allowed!");
+  inputLoanAmount.value = "";
+});
+
+//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+// Part 9
+// Using the flat method and completing the bank account app more
+// we want to take out all the movements and put them in one array
+
+const overalBalance = accounts
+  .flatMap((acc) => acc.movements)
+  .reduce((acc, mov) => acc + mov);
+console.log(overalBalance);
+// the flatMap method will goes one level deep and it will flat the main array and to the map method work on it (make an new array from it).
+// i dont know why this important in our application but whatever...
 
 //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -585,3 +689,40 @@ btnLogin.addEventListener("click", function (e) {
 // // 2. FIND method will only returns the first element that match the condition but the FILTER method will return all the elements which math the condtion
 
 //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+// // Some and Every
+
+// const movements = [250,450,-400,3000,-650,-130,70,1300];
+// console.log(movements)
+
+// // INCLUDES => Equality => the INCLUDES method is checking for equality
+// console.log(movements.includes(-130));
+
+// // SOME => Condition => the SOME method is checking for condition
+// // this method says some movements are bigger than zero
+// console.log(movements.some(mov => mov === -130));
+// const anyDeposits = movements.some(mov => mov > 1500);
+// console.log(anyDeposits);
+
+// // EVERY => it says all of the movements are bigger than zero
+// console.log(movements.every(mov => mov > 0));
+// console.log(account4.movements.every(mov => mov > 0));
+
+// // Seperate callback
+// const deposits = mov => mov > 0;
+// console.log(movemets.some(deposits));
+// console.log(movements.every(deposits));
+// console.log(movements.filter(deposits));
+
+//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+// flat and flatMap methods for arrays
+const arr = [
+  [1, 2, 3],
+  [4, 5, 6],
+  [7, 8],
+];
+console.log(arr.flat()); // this method will concat the array values together and it wont accepts a callback function as argument
+const arrDeep = [[[1, 2], 3], [4, [5, 6]], 7, 8];
+console.log(arrDeep.flat(1)); // this is the default model of the flat method and it will work with one level of nesting (the number inside the method shows the level of deep nesting).
+console.log(arrDeep.flat(2)); // now we get the same result as the previous array code above because we say that we need two level of deep nesting level
