@@ -277,6 +277,12 @@ console.log(overalBalance);
 
 //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+// Part 10
+// Sorting arrays
+
+
+//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 // // << working with arrays >>
 // const current = new Map([
 //   ['USD','United States dollar'],
@@ -716,13 +722,57 @@ console.log(overalBalance);
 
 //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-// flat and flatMap methods for arrays
-const arr = [
-  [1, 2, 3],
-  [4, 5, 6],
-  [7, 8],
-];
-console.log(arr.flat()); // this method will concat the array values together and it wont accepts a callback function as argument
-const arrDeep = [[[1, 2], 3], [4, [5, 6]], 7, 8];
-console.log(arrDeep.flat(1)); // this is the default model of the flat method and it will work with one level of nesting (the number inside the method shows the level of deep nesting).
-console.log(arrDeep.flat(2)); // now we get the same result as the previous array code above because we say that we need two level of deep nesting level
+// // flat and flatMap methods for arrays
+// const arr = [
+//   [1, 2, 3],
+//   [4, 5, 6],
+//   [7, 8],
+// ];
+// console.log(arr.flat()); // this method will concat the array values together and it wont accepts a callback function as argument
+// const arrDeep = [[[1, 2], 3], [4, [5, 6]], 7, 8];
+// console.log(arrDeep.flat(1)); // this is the default model of the flat method and it will work with one level of nesting (the number inside the method shows the level of deep nesting).
+// console.log(arrDeep.flat(2)); // now we get the same result as the previous array code above because we say that we need two level of deep nesting level
+
+//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+// // Sorting arrays
+// const movements = [250, 450, -400, 3000, -650, -130, 70, 1300];
+// // String
+// const owners = ["Jonas", "Zach", "Adam", "Martha"];
+// console.log(owners.sort()); // this method will sort the array from A to Z
+// console.log(owners);
+
+// // Numbers
+// console.log(movements);
+// console.log(movements.sort());
+// // the numbers wont get sorted because the sort method works for strings by default
+// // it realised that if the number was a string how would be the sort of it so: it only looks at the first number a number for example:
+// // -1 0 1 2 3 4 5 6 7 8 9
+// // and it goes by this order
+// // now how can we fix this problem?
+
+// // Acscending
+// movements.sort((a, b) => {
+//   // return < 0 , A , B (keep order)
+//   // return > 0 , B , A (switch order)
+//   if (a > b) return 1;
+//   else return -1;
+// }); // a is the current value and b is the next value
+// console.log(movements);
+
+// // Descending
+// movements.sort((a, b) => {
+//   if (a > b) return -1;
+//   else return 1;
+// });
+// console.log(movements);
+
+// // simpled Acscending
+// movements.sort((a, b) => a - b);
+// console.log(movements);
+
+// // simpled Descending
+// movements.sort((a, b) => b - a);
+// console.log(movements);
+
+//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
