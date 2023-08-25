@@ -64,10 +64,11 @@ const inputLoanAmount = document.querySelector(".form__input--loan-amount");
 const inputCloseUsername = document.querySelector(".form__input--user");
 const inputClosePin = document.querySelector(".form__input--pin");
 
-const displayMovements = function (movements) {
+const displayMovements = function (movements, sort = false) {
   containerMovements.innerHTML = ""; // remove the last movements and replace the new ones
+  const movs = sort ? movements.slice().sort((a, b) => a - b) : movements;
 
-  movements.forEach(function (mov, i) {
+  movs.forEach(function (mov, i) {
     // in the function inside the forEach loop the two parameters are return the value of the array and the index of it
     const type = mov > 0 ? "deposit" : "withdrawal";
     const html = `
@@ -280,7 +281,29 @@ console.log(overalBalance);
 // Part 10
 // Sorting arrays
 
+// first we will add a parameter to the displayMovements function named sort
+// then we write some piece of codes in the function and then we add the event for the sort button
+let sorted = false;
+btnSort.addEventListener("click", function (e) {
+  e.preventDefault();
+  displayMovements(currentAccount.movements, !sorted);
+  sorted = !sorted;
+});
 
+//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+// Part 11
+// We want to get the value of the movements then do a calculation and return the sum of them
+
+labelBalance.addEventListener("click", function () {
+  const movementsUI = Array.from(
+    document.querySelectorAll(".movements__value"),
+    (el) => Number(el.textContent.replace("€", ""))
+  );
+  console.log(movementsUI);
+
+  // const movementsUI2 = [...document.querySelectorAll(".movements__value")]; // this piece of code will make an array like the code above but then we must use the mapping separately
+});
 //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 // // << working with arrays >>
@@ -696,7 +719,7 @@ console.log(overalBalance);
 
 //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-// // Some and Every
+// // << Some and Every >>
 
 // const movements = [250,450,-400,3000,-650,-130,70,1300];
 // console.log(movements)
@@ -722,7 +745,7 @@ console.log(overalBalance);
 
 //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-// // flat and flatMap methods for arrays
+// // << flat and flatMap methods for arrays >>
 // const arr = [
 //   [1, 2, 3],
 //   [4, 5, 6],
@@ -735,7 +758,7 @@ console.log(overalBalance);
 
 //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-// // Sorting arrays
+// //<< Sorting arrays >>
 // const movements = [250, 450, -400, 3000, -650, -130, 70, 1300];
 // // String
 // const owners = ["Jonas", "Zach", "Adam", "Martha"];
@@ -776,3 +799,284 @@ console.log(overalBalance);
 // console.log(movements);
 
 //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+// // << More ways of creating and filling arrays >>
+
+// console.log([1,2,3,4,5,6,7]);
+// console.log(new Array(1,2,3,4,5,6,7));
+
+// const x = new Array(7); // in this line of code we expect the output to be a new array with only one value but the output will be a new array with 7 empty values it uses the previous array length
+// console.log(x);
+// console.log(x.map(() => 5)); // can we fix it using the map method? NO
+// // so whats the solution?
+// // USING THE FILL METHOD
+// x.fill(1) ;
+// console.log(x); // this method will create a new array but with the previous length it will fill the new array with the value that we send to it for example in here the output will be : [7,7,7,7,7,7,7]
+
+// // this method is work simillar to the slice method => the second argument of the method will set the start index of the new array
+
+// // x.fill(1,3);
+// // console.log(x); // the result will be starting from the index 3 setting the 1 value for the array like this : [7,7,7,1,1,1,1]
+
+// // // we can also use the final index like this :
+// // x.fill(5,5,7);
+// // console.log(x);
+
+// // Array.from
+// const y = Array.from({length: 7},() => 1);
+// console.log(y); // we have a exact same result as using the fill method
+
+// const z = Array.from({length: 7},(cur,i) => i + 1);
+// console.log(z);
+
+// const zWithoutParameter = Array.from({length: 7},(_,i) => i + 1);
+// console.log(zWithoutParameter); // we can skip a parameter if we dont want it like this
+
+//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+// // << Summary Which Array Method to Use >>
+
+//  // we learned 27 array methods
+
+// // 1.
+// let array =  [1,2,3];
+// console.log(array.length);
+// // 2.
+// array =  [1,2,3];
+// console.log(array.push(4));
+// // 3.
+// array =  [1,2,3];
+// console.log(array.unshift(0));
+// // 4.
+// array =  [1,2,3];
+// console.log(array.shift());
+// // 5.
+// array =  [1,2,3];
+// console.log(array.pop());
+// // 6.
+// array =  [1,2,3];
+// console.log(array.at(3));
+// // 7.
+// array =  [1,2,3];
+// console.log(array.indexOf(1));
+// // 8.
+// array =  [1,2,3];
+// console.log(array.includes(3));
+// // 9.
+// array =  [1,2,3];
+// console.log(array.map(num => Math.pow(num,2)));
+// // 10.
+// array =  [1,2,3];
+// console.log(array.filter(num => num % 2));
+// // 11.
+// array =  [1,2,3];
+// console.log(array.every(num => num > 1));
+// // 12.
+// array =  [1,2,3];
+// console.log(array.some(num => num > 1));
+// // 13.
+// array =  [1,2,3];
+// console.log(array.fill(10));
+// // 14.
+// array =  [1,2,3];
+// console.log(array.reduce((acc,cur,index,arr) => acc + cur));
+// // 15.
+// array =  [1,2,3];
+// console.log(array.concat([4,5]));
+// // 16.
+// array =  [1,2,3];
+// console.log(array.reverse());
+// // 17.
+// array =  [1,2,3];
+// console.log(array.sort((num1, num2) => num1 - num2));
+// // 18.
+// array =  [1,2,3];
+// console.log(array.join('-'));
+// // 19.
+// array =  [1,2,3];
+// console.log(array.flat());
+// // 20.
+// array =  [1,2,3];
+// console.log(array.flatMap(num => num > 2));
+// // 21.
+// array =  [1,2,3];
+// console.log(array.find(num => num > 1));
+// // 22.
+// array =  [1,2,3];
+// console.log(array.findIndex(num => num === 2));
+// // 23.
+// array =  [1,2,3];
+// console.log(array.toString());
+// // 24.
+// array =  [1,2,3];
+// console.log(array.slice(1,3));
+// // 25.
+// array =  [1,2,3];
+// console.log(array.splice(1,0,2,3));
+// // 26.
+// array =  [1,2,3];
+// console.log(Array.isArray(array));
+// // 27.
+// array =  [1,2,3];
+// console.log(Array.from({length: 7}, num => 8));
+
+// // added a pdf file into the "box-file" folder
+
+//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+// // << Array method practice >>
+
+// // 1.
+// const bankDepositSum = accounts
+//   .flatMap((acc) => acc.movements)
+//   .filter((mov) => mov > 0)
+//   .reduce((sum, cur) => sum + cur, 0);
+// console.log(bankDepositSum);
+
+// // 2.
+// // const numDeposits1000 = accounts.flatMap(acc => acc.movements).filter(mov => mov >= 1000).length; // this line of code is not wrong but better to be written this way:
+// const numDeposits1000 = accounts
+//   .flatMap((acc) => acc.movements)
+//   .reduce((count, cur) => (cur >= 1000 ? ++count : count), 0);
+// console.log("Deposits over 1000:", numDeposits1000);
+
+// // Prefixed ++ operator
+// let a = 10;
+// console.log(++a);
+// console.log(a);
+
+// // 3.
+// const { deposits, withdrawals } = accounts
+//   .flatMap((acc) => acc.movements)
+//   .reduce(
+//     (sums, cur) => {
+//       // cur > 0 ? (sums.deposits += cur) : (sums.withdrawals += cur);
+//       sums[cur > 0 ? "deposits" : "withdrawals"] += cur;
+//       return sums;
+//     },
+//     { deposits: 0, withdrawals: 0 }
+//   );
+// console.log(deposits, withdrawals);
+
+// // 4. Challenge you to rewrite the previouse examples using only reduce method
+// console.log(accounts);
+
+// // 1.
+// const reduceBankDepositSum = accounts.reduce((sum, acc) => {
+//   acc.movements
+//     .filter((mov) => mov > 0)
+//     .forEach((mov) => {
+//       sum += mov;
+//     });
+//   return sum;
+// }, 0);
+// console.log(bankDepositSum);
+// // 2.
+// const reduceNumDeposits = accounts.reduce((sum, cur) => {
+//   cur.movements.filter((mov) => (mov >= 1000 ? ++sum : sum));
+//   return sum;
+// }, 0);
+// console.log("Deposits over 1000:", reduceNumDeposits);
+
+// // 3.
+// const { reduceDeposits, reduceWithdrawals } = accounts.reduce(
+//   (sums, cur) => {
+//     cur.movements.forEach((el) => {
+//       sums[el > 0 ? "reduceDeposits" : "reduceWithdrawals"] += el;
+//     });
+//     return sums;
+//   },
+//   { reduceDeposits: 0, reduceWithdrawals: 0 }
+// );
+
+// console.log(reduceDeposits, reduceWithdrawals);
+
+// // 5.
+// const convertTitleCase = function (title) {
+//   const capitalize = str => str[0].toUpperCase() + str
+//   const exceptions = ["a", "an", "and", "the", "but", "or", "on", "in", "with"];
+  
+//   const titleCase = title.toLowerCase().split(' ').map(word => exceptions.includes(word) ? word : word[0].toUpperCase() + word.slice(1) ).join(' ');
+//   return titleCase;
+// };
+// console.log(convertTitleCase("this is a nice title"));
+// console.log(convertTitleCase("this is a LONG title but not too long"));
+// console.log(convertTitleCase("and here is another title with an EXAMPLE"));
+
+//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+// << Coding Challenge #4 >>
+
+/* 
+Julia and Kate are still studying dogs, and this time they are studying if dogs are eating too much or too little.
+Eating too much means the dog's current food portion is larger than the recommended portion, and eating too little is the opposite.
+Eating an okay amount means the dog's current food portion is within a range 10% above and 10% below the recommended portion (see hint).
+
+1. Loop over the array containing dog objects, and for each dog, calculate the recommended food portion and add it to the object as a new property. Do NOT create a new array, simply loop over the array. Forumla: recommendedFood = weight ** 0.75 * 28. (The result is in grams of food, and the weight needs to be in kg)
+2. Find Sarah's dog and log to the console whether it's eating too much or too little. HINT: Some dogs have multiple owners, so you first need to find Sarah in the owners array, and so this one is a bit tricky (on purpose) 🤓
+3. Create an array containing all owners of dogs who eat too much ('ownersEatTooMuch') and an array with all owners of dogs who eat too little ('ownersEatTooLittle').
+4. Log a string to the console for each array created in 3., like this: "Matilda and Alice and Bob's dogs eat too much!" and "Sarah and John and Michael's dogs eat too little!"
+5. Log to the console whether there is any dog eating EXACTLY the amount of food that is recommended (just true or false)
+6. Log to the console whether there is any dog eating an OKAY amount of food (just true or false)
+7. Create an array containing the dogs that are eating an OKAY amount of food (try to reuse the condition used in 6.)
+8. Create a shallow copy of the dogs array and sort it by recommended food portion in an ascending order (keep in mind that the portions are inside the array's objects)
+
+HINT 1: Use many different tools to solve these challenges, you can use the summary lecture to choose between them 😉
+HINT 2: Being within a range 10% above and below the recommended portion means: current > (recommended * 0.90) && current < (recommended * 1.10). Basically, the current portion should be between 90% and 110% of the recommended portion.
+
+TEST DATA:
+const dogs = [
+  { weight: 22, curFood: 250, owners: ['Alice', 'Bob'] },
+  { weight: 8, curFood: 200, owners: ['Matilda'] },
+  { weight: 13, curFood: 275, owners: ['Sarah', 'John'] },
+  { weight: 32, curFood: 340, owners: ['Michael'] }
+];
+
+GOOD LUCK 😀
+*/
+
+const dogs = [
+  { weight: 22, curFood: 250, owners: ['Alice', 'Bob'] },
+  { weight: 8, curFood: 200, owners: ['Matilda'] },
+  { weight: 13, curFood: 275, owners: ['Sarah', 'John'] },
+  { weight: 32, curFood: 340, owners: ['Michael']}
+];
+
+// 1.
+dogs.forEach(dog => dog.recFood = Math.trunc(dog.weight ** 0.75 * 28))
+
+
+// 2.
+const dogSarah = dogs.find(dog => dog.owners.includes("Sarah"));
+console.log(dogSarah);
+console.log(`Sarah's dog is eating too ${dogSarah.curFood > dogSarah.recfood ? "much" : "little"}`);
+
+// 3.
+const ownersEatTooMuch = dogs.filter(dog => dog.curFood > dog.recFood).flatMap(dog => dog.owners);
+const ownersEatTooLittle = dogs.filter(dog => dog.curFood < dog.recFood).flatMap(dog => dog.owners);
+console.log(ownersEatTooMuch);
+console.log(ownersEatTooLittle);
+
+// 4.
+console.log(`${ownersEatTooMuch.join(' and ')} dogs eat too much`);
+console.log(`${ownersEatTooLittle.join(' and ')} dogs eat too little`);
+
+// 5.
+console.log(dogs.some(dog => dog.curFood === dog.recFood));
+
+// 6.
+const checkEatingOkay = dog => dog.curFood > dog.recFood * 0.9 && dog.curFood < dog.recFood * 1.1;
+console.log(dogs.some(checkEatingOkay));
+
+// 7.
+const dogsEatingOkay = dogs.filter(checkEatingOkay);
+console.log(dogsEatingOkay);
+
+// 8.
+const dogsSorted = dogs.slice().sort((a,b) => a.recFood - b.recFood);
+console.log(dogsSorted);
+
+//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+// END OF THE ARRAY METHODS SECTION
+// added to github
