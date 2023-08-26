@@ -1,8 +1,8 @@
+/** @format */
+
 //      ___________________________________________ OBJECT ORIENTED PROGRAMMING ________________________________________
 
-
 // some descriptions:
-
 
 // << WHAT IS OBJECT ORIENTED PROGRAMMING? >>
 
@@ -34,7 +34,93 @@
 
 // << OOP in JavaScript >>
 
-// Some descriptions will be added to the box files with the same title name
+// some description were added to the box-file folder
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+// // << Constructor functions and the new operator >>
+
+// "use strict";
+
+// // constructor functions always start with a capital letter
+// const Person = function (firstName, birthYear) {
+//   // Instance properties
+//   this.firstName = firstName;
+//   this.birthYear = birthYear;
+
+//   // // Never do this
+//   // this.calcAge = function(){
+//   //   console.log(2037 - this.birthYear);
+//   // }
+// };
+
+// const jonas = new Person("Jonas", 1991);
+// console.log(jonas);
+// // WHAT HAPPENS WHEN WE CREATE AND CALL A CONSTRUCTOR FUNCITON?
+// // 1. New {} is created
+// // 2. function is called, this = {}
+// // 3. {} linked to prototype
+// // 4. function automatically return {}
+
+// const matilda = new Person("matilda",2017);
+// const jack = new Person("jack",1975);
+// console.log(matilda,jack);
+
+
+// console.log(jonas instanceof Person);
+
+// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+// // << Protoypes  >>
+
+// 'use strict';
+
+// const Person = function(firstName,birthYear){
+//   this.firstName = firstName;
+//   this.birthYear = birthYear;
+// }
+// const jonas = new Person("Jonas",1991);
+// const matilda = new Person("Matilda",2017);
+// const jack = new Person("Jack",1975);
+// console.log(jonas);
+// console.log(matilda);
+// console.log(jack);
+
+// // Prototypes
+// console.log(Person.prototype);
+
+// Person.prototype.calcAge = function(){
+//   console.log(2037 - this.birthYear);
+// };
+
+// jonas.calcAge();
+// matilda.calcAge();
+// jack.calcAge();
+
+
+// console.log(jonas.__proto__);
+// console.log(jonas.__proto__ === Person.prototype);
+
+// console.log(Person.prototype.isPrototypeOf(jonas));
+// console.log(Person.prototype.isPrototypeOf(matilda));
+// console.log(Person.prototype.isPrototypeOf(Person));
+
+
+// // .prototypeOfLinkedObjects
+
+// Person.prototype.species = "Homo Sapiens";
+// console.log(jonas,matilda);
+// console.log(jonas.species,matilda.species);
+// console.log(jonas.hasOwnProperty("firstName"));
+// console.log(jonas.hasOwnProperty("species"));
+
+// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+// << Prototypal Inheritance and the prototype >>
+
+ // Some unclear descriptions...
+
+// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+// << Prototypal Inheritance on Built-in Objects >>
 
