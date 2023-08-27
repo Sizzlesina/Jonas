@@ -66,7 +66,6 @@
 // const jack = new Person("jack",1975);
 // console.log(matilda,jack);
 
-
 // console.log(jonas instanceof Person);
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -97,14 +96,12 @@
 // matilda.calcAge();
 // jack.calcAge();
 
-
 // console.log(jonas.__proto__);
 // console.log(jonas.__proto__ === Person.prototype);
 
 // console.log(Person.prototype.isPrototypeOf(jonas));
 // console.log(Person.prototype.isPrototypeOf(matilda));
 // console.log(Person.prototype.isPrototypeOf(Person));
-
 
 // // .prototypeOfLinkedObjects
 
@@ -118,10 +115,52 @@
 
 // << Prototypal Inheritance and the prototype >>
 
- // gotta watch the section again
- 
+// i'm having a summary of what jonas said but i cant figure it out exactly
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-// << Prototypal Inheritance on Built-in Objects >>
+// // << Prototypal Inheritance on Built-in Objects >>
 
+// const Person = function (firstName, birthYear) {
+//   // this is an constructor function
+//   this.firstName = firstName;
+//   this.birthYear = birthYear;
+// };
+// const jonas = new Person("Jonas", 1975); // creating an object from the constructor function
+// Person.prototype.species = "Homo Sapiens"; // created a species in the constructor function
+// console.log(jonas.__proto__); // in here we just log the prototype to the console
+// console.log(jonas); // so in here i just logged the species of the constructor function
+
+// // Object.prototype {top of prototype chain}
+// console.log(jonas.__proto__.__proto__); // in here we want to take a look at the prototype chaining
+// console.log(jonas.__proto__.__proto__.__proto__); // this line of code will return as a null value because as the prototype chaining this will return a null value
+
+// console.dir(Person.prototype.constructor);
+
+// // prototype of the arrays
+// const arr = [3, 6, 4, 5, 6, 9, 3];
+// console.log(arr.__proto__); // by logging this line of code to the console we will figure out that all the array methods are lived inside the prototype and the array will inherit them by the prototype
+// console.log(arr.__proto__ === Array.prototype);
+// // when we create an array like the code above we can use a constructor function to create the array too like this: new Array === []
+// console.log(arr.__proto__.__proto__); // this line of code will refer to the prototype chaining
+
+// // we can write our own methods for the arrays like this:
+// const arr2 = [2, 2, 3, 4, 5, 7, 7];
+// // lets pretend we have a array with repeated elements
+// // so now we want to have a array with unique values and we want to create that array using the self made method
+// // we can do this:
+// Array.prototype.unique = function () {
+//   return [...new Set(this)];
+// };
+// console.log(arr2.unique()); // the output will be a unique array
+
+// // i must add that for fun this way of adding a new method to the array's is good but in practice it's better not to use it this way and use the javaScript own methods
+
+// const h1 = document.querySelector('h1');
+// console.dir(h1); // when we take a look at the prototype of this element we will figure this out that it contains a big prototype chaining
+
+
+// // now lets take a look at a simple function prototype 
+// console.log(x => x + 1); // now if we take a look at this we will see that it contains all the methods that we can use for a function
+
+// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------
