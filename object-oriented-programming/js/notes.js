@@ -293,10 +293,21 @@ class PersonCl {
   get age(){
     return 2037 - this.birthYear;
   }
+  // Set a property thath already exists
+  set fullName(name){
+    console.log(name);
+    if(name.includes(' ')) this._fullName = name; // becasuse the constructor function and the setter are store the exact same thing we need to write a "_" before the parameter name to identify that to the javascript that these are diffrent variable name 
+    else alert(`${name} is not a full name!`);
+  }
+  get fullName(){
+    return this._fullName;
+  }
 }
 const jessica = new PersonCl("Jessica Davis",1996);
 console.log(jessica);
 jessica.calcAge();
 console.log(jessica.age);
+const walter = new PersonCl("Walter White",1965);
+// if we write only the name it will give us an error that this is not a full name 
 
-// 7 minutes of the video get going on
+// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------
