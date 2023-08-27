@@ -184,7 +184,8 @@
 //   this.make = make;
 //   this.speed = speed;
 //   console.log(`${make} going at ${speed} km/h`);
-// }
+
+
 // console.log("___ REGULAR OBJECTS ___");
 // const firstCar = new Car("BMW",120 );
 // const secondCar = new Car('Mercedes',95)
@@ -206,3 +207,96 @@
 // // wrote it all by my own 
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+// // << ES6 Classes >>
+
+// // // class experession
+// // const PersonCl = class {
+
+// // }
+// // // class declaration
+// // class PersonCl {
+
+// // }
+
+// // its easier to use the class declaration
+// class PersonCl {
+//   constructor(firstName,birthYear){
+//     this.firstName = firstName;
+//     this.birthYear = birthYear;
+//   }
+//   // Methods will be added to the .prototype property
+//   calcAge(){
+//     console.log(2037 - this.birthYear);
+//   }
+//   greet(){
+//     console.log(`hey ${this.firstName}`);
+//   }
+// }
+// const jessica = new PersonCl("Jessica",1995)
+// console.log(jessica);
+// jessica.calcAge();
+
+// console.log(jessica.__proto__ === PersonCl.prototype);
+
+// // we can write the function inside the constructor function manually like this: (but its better to be written inside the constructor function)
+
+// // PersonCl.prototype.greet = function(){
+// //   console.log(`hey ${this.firstName}`);
+// // }
+
+// jessica.greet(); // if we write the function manually or inside the constructor function they will have the exact same result 
+
+
+// // SOME HINTS ABOUT THE CLASSES 
+
+// // 1. Classes are NOT hoisted 
+
+// // 2. Classes are first-class citizens => it means we can pass them into functions and  we can return them from the functions
+
+// // 3. Classes are executed in strict mode
+
+// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+// << Setters and Getters >>
+
+// its very simillar to what we learned in the c++ language about the classes in a short description the getter will get the data and it includes parameters and the setter will set it in the class
+
+const account = {
+  owner : "Jonas",
+  movemnets : [200,530,120,300],
+  // now we want to add a getter to the object
+  get latest(){
+    return this.movemnets.slice(-1).pop(); // this line of code will return the last element of the array then it will remove the element from the array
+  },
+  // now we want to add a setter to the object
+  set latest(mov){
+    this.movemnets.push(mov); // this line of code will add a element to the array
+  }
+};
+console.log(account.latest); // we will log it to the console as it was a property 
+account.latest = 50;
+console.log(account.movements); // now we can see that the element were added to the array
+
+// now lets head back to the person class
+class PersonCl {
+  constructor(fullName,birthYear){
+    this.fullName = fullName;
+    this.birthYear = birthYear;
+  }
+  calcAge(){
+    console.log(`2037 - ${this.birthYear}`);
+  }
+  greet(){
+    console.log(`Hey ${this.fullName}`);
+  }
+  get age(){
+    return 2037 - this.birthYear;
+  }
+}
+const jessica = new PersonCl("Jessica Davis",1996);
+console.log(jessica);
+jessica.calcAge();
+console.log(jessica.age);
+
+// 7 minutes of the video get going on
