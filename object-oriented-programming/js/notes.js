@@ -378,3 +378,181 @@
 // newClass.hey(); // we can call the static method like this
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+// // << Object.create >>
+
+// // third way of implementing prototypal inheritance or delegation
+
+// 'use strict';
+//  const PersonProto = {
+//   calcAge(){
+//     console.log(2037 - this.birthYear);
+//   },
+
+//   init(firstName,birthYear){
+//     this.firstName = firstName;
+//     this.birthYear = birthYear;
+//   }
+//  }
+
+// const steven = Object.create(PersonProto);
+// console.log(steven);
+// steven.name = "Steven";
+// steven.birthYear = 2002;
+// // we want to use a funciton in our object to do the storing of the name and birthYear for us so we add the init function
+// steven.calcAge();
+
+// console.log(steven.__proto__ === PersonProto);
+
+// // now that we add the function inside the object we can do this:
+
+// const sarah = Object.create(PersonProto);
+// sarah.init("Sarah",1979);
+// sarah.calcAge();
+
+// // i thought that we can use the methods chaining on the prototype's but we can't
+
+// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+// // << Coding Challenge #2 >>
+
+// /*
+// 1. Re-create challenge 1, but this time using an ES6 class;
+// 2. Add a getter called 'speedUS' which returns the current speed in mi/h (divide by 1.6);
+// 3. Add a setter called 'speedUS' which sets the current speed in mi/h (but converts it to km/h before storing the value, by multiplying the input by 1.6);
+// 4. Create a new car and experiment with the accelerate and brake methods, and with the getter and setter.
+
+// DATA CAR 1: 'Ford' going at 120 km/h
+
+// GOOD LUCK 😀
+// */
+
+// class car {
+//   constructor(make,speed){
+//     this.make = make;
+//     this.speed = speed;
+//     console.log(`${make} going at ${speed} km/h`);
+//   }
+//   accelerate(speed){
+//     this.speed += 10;
+//     console.log(`${this.make} is going at ${this.speed} km/h`);
+//   }
+//   brake(){
+//     this.speed -= 5;
+//     console.log(`${this.make} going at ${this.speed} km/h`);
+
+//   }
+//   get speedUS(){
+//     return `${this.speed / 1.6} mi/h`
+//   }
+//   set speedUS(speedUS){
+//     this.speed = speedUS * 1.6;
+//   }
+// }
+
+// const car1 = new car("BMW",120);
+// console.log(car1.speedUS);
+// car1.accelerate();
+// car1.accelerate();
+// car1.brake();
+// car1.speedUS = 50;
+// console.log(car1);
+
+// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+// // << Inheritance between classes and constructor functions >>
+
+// 'use strict';
+
+// const Person = function(firstName,birthYear){
+//   this.firstName = firstName;
+//   this.birthYear = birthYear;
+// }
+
+// Person.prototype.calcAge = function(){
+//   console.log(2037 - this.birthYear);
+// }
+
+// const Student = function(firstName,birthYear,course){
+//   Person.call(this,firstName,birthYear);
+//   this.course = course;
+// }
+
+// // Linking Prototypes
+// Student.prototype = Object.create(Person.prototype); // with this line of code we will inherit the person to the student object
+
+// // we cant inherrit the prototype like this:
+// // Student.prototype = Person.prototype; // this will copy the exact prototype into each other
+
+// Student.prototype.introduce = function(){
+//   console.log(`Hey my name is ${this.firstName} and i study ${this.course}`);
+// }
+
+// const mike = new Student("Mike",2020,"Computer Science")
+// mike.introduce();
+// mike.calcAge();
+
+// console.log(mike.__proto__);
+// console.log(mike.__proto__.__proto__);
+
+// console.dir(Student.prototype.constructor); // when we log htis line of code to the console the javascript will return the person constructor and to fix that we can use this line of code:
+// console.log(mike instanceof Student);
+// console.log(mike instanceof Person);
+
+// Student.prototype.constructor = Student;
+// console.dir(Student.prototype.constructor);
+// // now the problem fixed
+
+// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+// // << Coding Challenge #3 >>
+
+// /* 
+// 1. Use a constructor function to implement an Electric Car (called EV) as a CHILD "class" of Car. Besides a make and current speed, the EV also has the current battery charge in % ('charge' property);
+// 2. Implement a 'chargeBattery' method which takes an argument 'chargeTo' and sets the battery charge to 'chargeTo';
+// 3. Implement an 'accelerate' method that will increase the car's speed by 20, and decrease the charge by 1%. Then log a message like this: 'Tesla going at 140 km/h, with a charge of 22%';
+// 4. Create an electric car object and experiment with calling 'accelerate', 'brake' and 'chargeBattery' (charge to 90%). Notice what happens when you 'accelerate'! HINT: Review the definiton of polymorphism 😉
+
+// DATA CAR 1: 'Tesla' going at 120 km/h, with a charge of 23%
+
+// GOOD LUCK 😀
+// */
+
+// const Car = function (make, speed) {
+//   this.make = make;
+//   this.speed = speed;
+// };
+
+// Car.prototype.accelerate = function () {
+//   this.speed += 10;
+//   console.log(`${this.make} is going at ${this.speed} km/h`);
+// };
+
+// Car.prototype.brake = function () {
+//   this.speed -= 5;
+//   console.log(`${this.make} is going at ${this.speed} km/h`);
+// };
+
+// const EV = function (make, speed, charge) {
+//   Car.call(this, make, speed);
+//   this.charge = charge;
+// };
+
+// EV.prototype = Object.create(Car.prototype);
+
+// EV.prototype.chargeBattery = function(chargeTo){
+//   this.charge = chargeTo;
+// }
+
+// EV.prototype.accelerate = function(){
+//   this.speed += 20;
+//   this.charge--;
+//   console.log(`${this.make} is going at ${this.speed} km/h. with a charge of ${this.charge}`);
+// }
+// const tesla = new EV('Tesla', 120, 23);
+// tesla.chargeBattery(90);
+// console.log(tesla);
+// tesla.brake();
+// tesla.accelerate();
+
+// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------
