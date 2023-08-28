@@ -556,3 +556,71 @@
 // tesla.accelerate();
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+// // << Inheritance between classes - ES6 CLASSES >>
+
+// 'use strict';
+
+// class PersonCl {
+//   constructor(fullName,birthYear){
+//     this.fullName = fullName;
+//     this.birthYear = birthYear;
+//   }
+//   calcAge(){
+//     console.log(2037 - this.birthYear);
+//   }
+//   greet(){
+//     console.log(`Hey ${this.fullName}`);
+//   }
+//   get age(){
+//     return 2037 - this.birthYear;
+//   }
+//   set fullName(name){
+//     if(name.includes(' ')) this._fullName = name;
+//     else alert(`${name} is not a full name`);
+//   }
+//   get fullName(){
+//     return this._fullName
+//   }
+
+//   // Static method 
+//   static hey(){
+//     console.log(`Hey there!👋`);
+//   }
+// }
+// // we want to make the student class to inherit the person class 
+// // now for that we should do this:
+
+// class StudentCl extends PersonCl {
+//   constructor(fullName,birthYear,course){
+//     // PersonCl.call(this,fullName,birthYear)  // // we shouldnt do this line of code like before instead we can do this:
+
+
+
+//     // this always need to happens first!
+//     super(fullName,birthYear); 
+//     // this line of code will do the work of the code above but it will do that automatically
+
+//     this.course = course;  // if we dont want any new properties in our constructor function then we can delete this line of code              
+//   }
+//   introduce(){
+//     console.log(`My name is ${this.fullName} and i study ${this.course} `);
+//   }
+//   //we want to overwrite the calcAge function in here :
+//   calcAge(){
+//     console.log(`I am ${2037 - this.birthYear} years old, but as a student I feel more like ${2037 - this.birthYear - 10}`);
+//   } // now this function will work and the one in the perosn class wont work
+
+//   // HINT : When we overwriting a function in a class which inherits a class the new function will work and the old one wont work
+// }
+
+// const martha = new StudentCl("Martha Jones",2012,"Computer Science");
+// martha.introduce();
+// martha.calcAge();
+// console.log(martha.__proto__.__proto__); // in this line of code we can see that the prototype chaining is have access to the calcAge function by using the "extends" keyword
+
+// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+// << Inheritance between classes - Object.create >>
+
+'use strict';
