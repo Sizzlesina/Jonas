@@ -159,16 +159,14 @@
 // const h1 = document.querySelector('h1');
 // console.dir(h1); // when we take a look at the prototype of this element we will figure this out that it contains a big prototype chaining
 
-
-// // now lets take a look at a simple function prototype 
+// // now lets take a look at a simple function prototype
 // console.log(x => x + 1); // now if we take a look at this we will see that it contains all the methods that we can use for a function
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-
 // // << Coding Challenge #1 >>
 
-// /* 
+// /*
 // 1. Use a constructor function to implement a Car. A car has a make and a speed property. The speed property is the current speed of the car in km/h;
 // 2. Implement an 'accelerate' method that will increase the car's speed by 10, and log the new speed to the console;
 // 3. Implement a 'brake' method that will decrease the car's speed by 5, and log the new speed to the console;
@@ -185,13 +183,12 @@
 //   this.speed = speed;
 //   console.log(`${make} going at ${speed} km/h`);
 
-
 // console.log("___ REGULAR OBJECTS ___");
 // const firstCar = new Car("BMW",120 );
 // const secondCar = new Car('Mercedes',95)
 // Car.prototype.accelerate= function(){
 //   this.speed += 5;
-//   console.log(`${this.make} is going at ${this.speed} km/h`); 
+//   console.log(`${this.make} is going at ${this.speed} km/h`);
 // }
 // Car.prototype.brake = function(){
 //    this.speed -= 5;
@@ -199,12 +196,12 @@
 // };
 // console.log("___ TEST ___");
 // firstCar.brake();
-// firstCar.brake(); 
+// firstCar.brake();
 // firstCar.brake();
 // firstCar.accelerate();
 // firstCar.accelerate();
 
-// // wrote it all by my own 
+// // wrote it all by my own
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -245,12 +242,11 @@
 // //   console.log(`hey ${this.firstName}`);
 // // }
 
-// jessica.greet(); // if we write the function manually or inside the constructor function they will have the exact same result 
+// jessica.greet(); // if we write the function manually or inside the constructor function they will have the exact same result
 
+// // SOME HINTS ABOUT THE CLASSES
 
-// // SOME HINTS ABOUT THE CLASSES 
-
-// // 1. Classes are NOT hoisted 
+// // 1. Classes are NOT hoisted
 
 // // 2. Classes are first-class citizens => it means we can pass them into functions and  we can return them from the functions
 
@@ -258,56 +254,127 @@
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-// << Setters and Getters >>
+// // << Setters and Getters >>
 
-// its very simillar to what we learned in the c++ language about the classes in a short description the getter will get the data and it includes parameters and the setter will set it in the class
+// // its very simillar to what we learned in the c++ language about the classes in a short description the getter will get the data and it includes parameters and the setter will set it in the class
 
-const account = {
-  owner : "Jonas",
-  movemnets : [200,530,120,300],
-  // now we want to add a getter to the object
-  get latest(){
-    return this.movemnets.slice(-1).pop(); // this line of code will return the last element of the array then it will remove the element from the array
-  },
-  // now we want to add a setter to the object
-  set latest(mov){
-    this.movemnets.push(mov); // this line of code will add a element to the array
-  }
-};
-console.log(account.latest); // we will log it to the console as it was a property 
-account.latest = 50;
-console.log(account.movements); // now we can see that the element were added to the array
+// const account = {
+//   owner: "Jonas",
+//   movemnets: [200, 530, 120, 300],
+//   // now we want to add a getter to the object
+//   get latest() {
+//     return this.movemnets.slice(-1).pop(); // this line of code will return the last element of the array then it will remove the element from the array
+//   },
+//   // now we want to add a setter to the object
+//   set latest(mov) {
+//     this.movemnets.push(mov); // this line of code will add a element to the array
+//   },
+// };
+// console.log(account.latest); // we will log it to the console as it was a property
+// account.latest = 50;
+// console.log(account.movements); // now we can see that the element were added to the array
 
-// now lets head back to the person class
-class PersonCl {
-  constructor(fullName,birthYear){
-    this.fullName = fullName;
-    this.birthYear = birthYear;
-  }
-  calcAge(){
-    console.log(`2037 - ${this.birthYear}`);
-  }
-  greet(){
-    console.log(`Hey ${this.fullName}`);
-  }
-  get age(){
-    return 2037 - this.birthYear;
-  }
-  // Set a property thath already exists
-  set fullName(name){
-    console.log(name);
-    if(name.includes(' ')) this._fullName = name; // becasuse the constructor function and the setter are store the exact same thing we need to write a "_" before the parameter name to identify that to the javascript that these are diffrent variable name 
-    else alert(`${name} is not a full name!`);
-  }
-  get fullName(){
-    return this._fullName;
-  }
-}
-const jessica = new PersonCl("Jessica Davis",1996);
-console.log(jessica);
-jessica.calcAge();
-console.log(jessica.age);
-const walter = new PersonCl("Walter White",1965);
-// if we write only the name it will give us an error that this is not a full name 
+// // now lets head back to the person class
+// class PersonCl {
+//   constructor(fullName, birthYear) {
+//     this.fullName = fullName;
+//     this.birthYear = birthYear;
+//   }
+//   calcAge() {
+//     console.log(`2037 - ${this.birthYear}`);
+//   }
+//   greet() {
+//     console.log(`Hey ${this.fullName}`);
+//   }
+//   get age() {
+//     return 2037 - this.birthYear;
+//   }
+//   // Set a property thath already exists
+//   set fullName(name) {
+//     console.log(name);
+//     if (name.includes(" "))
+//       this._fullName =
+//         name; // becasuse the constructor function and the setter are store the exact same thing we need to write a "_" before the parameter name to identify that to the javascript that these are diffrent variable name
+//     else alert(`${name} is not a full name!`);
+//   }
+//   get fullName() {
+//     return this._fullName;
+//   }
+// }
+// const jessica = new PersonCl("Jessica Davis", 1996);
+// console.log(jessica);
+// jessica.calcAge();
+// console.log(jessica.age);
+// const walter = new PersonCl("Walter White", 1965);
+// // if we write only the name it will give us an error that this is not a full name
+
+// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+// // << Static Methods >>
+
+// "use strict";
+// // this is an constructor function
+// const Person = function (firstName, birthYear) {
+//   this.firstName = firstName;
+//   this.birthYear = birthYear;
+// };
+
+// const jonas = new Person("Jonas", 1991);
+// console.log(jonas);
+
+// const matilda = new Person("Matilda", 2017);
+// const jack = new Person("Jack", 1975);
+
+// console.log(jonas instanceof Person);
+
+// console.log(Array.from(document.querySelectorAll("h1"))); // in here we will see that the "for" is a function but its a function that attached to the Array object
+// console.log(Number.parseFloat(12)); // in here too we can see that the parseFloat is a function but its a function which attached to the Number object
+// // and i think these kind of methods are called "Static Methods"
+
+// // so we wanna use the same method for our constructor function which goes like this:
+
+// Person.hey = function () {
+//   console.log("Hey there👋");
+//   console.log(this);
+// };
+// Person.hey(); // we can call the method like this but this method is not inherited soooo...??!
+
+// // jonas.hey(); // can we inherit the function to the jonas object like this? NO
+
+// // now we want to add a static method to our class
+
+// class newClass {
+//   // constructor function
+//   constructor(fullName, birthYear) {
+//     this.fullName = fullName;
+//     this.birthYear = birthYear;
+//   }
+//   // Static method
+//   static hey() {
+//     console.log("Hey there!👋");
+//     console.log(this);
+//   }
+//   // Get and Set - Instance method
+//   get age() {
+//     return 2037 - this.age;
+//   }
+//   set fullName(name) {
+//     return (this._fullName = name);
+//   }
+//   get fullName() {
+//     return this._fullName; // because its repetable we must use (_)
+//   }
+//   // Regular functions - Instance methods
+//   caclAge() {
+//     console.log(2037 - this.birthYear);
+//   }
+//   greet() {
+//     console.log(`Hey ${this.firstName}`);
+//   }
+// }
+// const sina = new newClass("sina pooshideroo", 2000);
+// console.log(sina);
+
+// newClass.hey(); // we can call the static method like this
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------
