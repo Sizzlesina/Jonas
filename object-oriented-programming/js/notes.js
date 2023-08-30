@@ -758,3 +758,4 @@
 // // using the "_" before the variable or function that we want to make it private will prevent to access to it from outside the class and somehow make it more private but in ES6 we simply doesnt have a thing called private accessing to the data (or maybe we have but still jonas didnt talk about it).
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
