@@ -507,7 +507,7 @@
 
 // // << Coding Challenge #3 >>
 
-// /* 
+// /*
 // 1. Use a constructor function to implement an Electric Car (called EV) as a CHILD "class" of Car. Besides a make and current speed, the EV also has the current battery charge in % ('charge' property);
 // 2. Implement a 'chargeBattery' method which takes an argument 'chargeTo' and sets the battery charge to 'chargeTo';
 // 3. Implement an 'accelerate' method that will increase the car's speed by 20, and decrease the charge by 1%. Then log a message like this: 'Tesla going at 140 km/h, with a charge of 22%';
@@ -583,25 +583,23 @@
 //     return this._fullName
 //   }
 
-//   // Static method 
+//   // Static method
 //   static hey(){
 //     console.log(`Hey there!👋`);
 //   }
 // }
-// // we want to make the student class to inherit the person class 
+// // we want to make the student class to inherit the person class
 // // now for that we should do this:
 
 // class StudentCl extends PersonCl {
 //   constructor(fullName,birthYear,course){
 //     // PersonCl.call(this,fullName,birthYear)  // // we shouldnt do this line of code like before instead we can do this:
 
-
-
 //     // this always need to happens first!
-//     super(fullName,birthYear); 
+//     super(fullName,birthYear);
 //     // this line of code will do the work of the code above but it will do that automatically
 
-//     this.course = course;  // if we dont want any new properties in our constructor function then we can delete this line of code              
+//     this.course = course;  // if we dont want any new properties in our constructor function then we can delete this line of code
 //   }
 //   introduce(){
 //     console.log(`My name is ${this.fullName} and i study ${this.course} `);
@@ -634,13 +632,11 @@
 //   }
 // };
 
-
 // // this line of code will create a new person object using Object.create
 // const steven = Object.create(PersonProto);
 
-
 // // now we gonna make student inherit directly from the person:
-// const StudentProto = Object.create(PersonProto); 
+// const StudentProto = Object.create(PersonProto);
 // StudentProto.init = function(firstName,birthYear,course){
 //   PersonProto.init.call(this,firstName,birthYear);
 //   this.course = course;
@@ -652,8 +648,113 @@
 // const jay = Object.create(StudentProto);
 // jay.init("Jay",2010,"Computer Science");
 // jay.introduce();
-// jay.calcAge(); // this function is inherited by the PersonProto 
+// jay.calcAge(); // this function is inherited by the PersonProto
 
-// // 👆 the Student Object now is the proto of jay and the PersonProto in the prototype chaining will be the parent of jay 
+// // 👆 the Student Object now is the proto of jay and the PersonProto in the prototype chaining will be the parent of jay
+
+// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+// // << Another class example >>
+
+// "use strict";
+
+// class Account {
+//   constructor(owner, currency, pin) {
+//     this.owner = owner;
+//     this.currency = currency;
+//     this.pin = pin;
+//     // we want to create an new property which is an empty array but we dont want to pass it to the parameters so what we do is to:
+//     this.movements = [];
+//     this.locale = navigator.language;
+
+//     console.log(`Thanks for opening an account, ${owner}`);
+//   }
+
+//   // Public Interface
+//   deposit(val) {
+//     this.movements.push(val);
+//   }
+
+//   withdrawal(val) {
+//     this.deposit(-val);
+//   }
+//   // we also call these two functions here an API
+
+//   approveLoan(val) {
+//     return true;
+//   }
+//   requestLoan(val) {
+//     if (this.approveLoan(val)) {
+//       this.deposit(val);
+//       console.log(`Loan approved`);
+//     }
+//   }
+// }
+
+// const acc1 = new Account("Jonas", "EUR", 1111);
+// console.log(acc1);
+
+// acc1.deposit(250);
+// acc1.withdrawal(140);
+// acc1.requestLoan(1000);
+// console.log(acc1); // now we can see that the arguments were added to the movements array
+// console.log(acc1.pin);
+
+// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+// // << Encapsulation _ Protected Properties and Methods >>
+
+
+// // in thhis section we want to make our data more private which we cant get access to them outside the class
+
+// 'use strict';
+
+// class Account {
+//   constructor(owner,currency,pin){
+//     this.owner = owner;
+//     this.currency = currency;
+//     // Proteceted Property
+//     this._pin = pin;
+//     this._movements = [];
+//     this.locale = navigator.language;
+
+//     console.log(`Thanks for opening an account, ${owner}`);
+//   }
+
+//   // Public Interface
+//   getMovements(){
+//        return this._movements;
+//   }
+//   deposit(val){
+//     this._movements.push(val);
+//   }
+//   withdrawal(val){
+//     this.deposit()
+//   }
+//   _approveLoan(val){
+//     return true;
+//   }
+//   requestLoan(val){
+//     if(this._approveLoan(val)){
+//       this.deposit(val);
+//       console.log(`Loan approved`);
+//     }
+//   }
+// }
+// // Encapsulation => to keep some properties and methods private inside the class so they are not accessible from outside of the class.
+
+// // API => Public Interface
+
+// const acc1 = new Account("Jonas","EUR",1111);
+// acc1.deposit(450);
+// acc1.withdrawal(140);
+// acc1.requestLoan(1000);
+// acc1._approveLoan(1000);
+// console.log(acc1.getMovements());
+// console.log(acc1);
+// console.log(acc1.pin); 
+
+// // we want to use a fake encapsulation using a convention
+// // using the "_" before the variable or function that we want to make it private will prevent to access to it from outside the class and somehow make it more private but in ES6 we simply doesnt have a thing called private accessing to the data (or maybe we have but still jonas didnt talk about it).
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------
