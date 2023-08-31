@@ -42,17 +42,15 @@
 
 // AJAX => Asynchronous Javascript And Xml allows us to communicate with remote web servers in an asynchronous way. with ajax calls we can request data from web servers dynamically
 
-
 // what is an API :
 // Application Programming Interface, piece of software that can be used by another pieces of software, in order to allow applications to talk to each other
- 
+
 // there are be many types of API in web development:
 // 1. DOM API - 2. Gelocation API - 3. Own class API - 4. Online API *IMPORTANT*
- 
+
 // soooooo in this video jonas just give me some information about the ajax and asynchronous and stuff like that and we dont really get into coding
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
 
 // // << Our first AJAX call XMLHttpRequest >>
 
@@ -90,17 +88,12 @@
 // getCountry("portugal");
 // getCountry("russia");
 
-
-
-
-
-
 // // HINT :
 // //--------------------------------------------------
-// // when we get data from a site that always an backend developer will send the data to us we can manage the data like this 
+// // when we get data from a site that always an backend developer will send the data to us we can manage the data like this
 // // so the steps are:
 // // 1. first we will get the data in a JSON format
-// // 2. then we convert the data to a javascript format and then do the rhings that we want on the data and write our code 
+// // 2. then we convert the data to a javascript format and then do the rhings that we want on the data and write our code
 // // it that simple and the data will be given by a backend developer so we just only need a frontend UI for the data
 // // for example we can have an object with an empty value and the values of the object will be given to us by the backend developer
 // // alright i think the description was too long so lets go to continue the course
@@ -108,14 +101,11 @@
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-
 // // << Welcome to callback hell>>
-
 
 // 'use strict';
 // const btn = document.querySelector(".btn-country");
 // const countriesContainer = document.querySelector('.countries')
-
 
 // // this function were added to make our code cleaner
 // const renderCountry = function(data,className = ''){
@@ -148,7 +138,7 @@
 //     // Render Country 1
 //     renderCountry(data);
 
-//     // Get neighbour country 2 
+//     // Get neighbour country 2
 //     const neighbour = data.borders[0];
 
 //      if(!neighbour) return;
@@ -168,23 +158,24 @@
 //      })
 //   })
 // }
+
 // getCountryAndNeighbours("portugal");
 // getCountryAndNeighbours("usa");
 
-// // an exmaple for callback hell
-// setTimeout(() => {
-//   console.log('1 second passed');
-//   setTimeout(() => {
-//     console.log('2 seconds passed');
-//     setTimeout(() => {
-//       console.log('3 seconds passed');
-//     },1000)
-//   }, 1000);
-// },1000)
-// // this function thay have a lot of nested functions is called callback hell
+// // // an exmaple for callback hell
+// // setTimeout(() => {
+// //   console.log('1 second passed');
+// //   setTimeout(() => {
+// //     console.log('2 seconds passed');
+// //     setTimeout(() => {
+// //       console.log('3 seconds passed');
+// //     },1000)
+// //   }, 1000);
+// // },1000)
+// // // this function thay have a lot of nested functions is called callback hell
 
-// // is callback hell a good thing ? NO
-// // so whats the solution? IN THE NEXT VIDEO
+// // // is callback hell a good thing ? NO
+// // // so whats the solution? IN THE NEXT VIDEO
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -195,11 +186,10 @@
 // // the modern way of AJAX call is to use the "fetch "
 
 // 'use strict';
- 
-// const request = fetch("https://restcountries.com/v2/name/iran");
-// // this line of code will behave as same as the GET method that we used for XMLHttpRequest 
-// console.log(request); // now we have an promise\
 
+// const request = fetch(c);
+// // this line of code will behave as same as the GET method that we used for XMLHttpRequest
+// console.log(request); // now we have an promise\
 
 // // PROMISE => An object that is used as a placeholder for the future result of an asynchronous operation.
 
@@ -214,3 +204,139 @@
 // // so in this video jonas just talked some about the promises and give some descriptions and defenitions and in the next video we wanna see the promises use case
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+// // << Consuming Promises >>
+
+// 'use strict';
+// const btn = document.querySelector(".btn-country");
+// const countriesContainer = document.querySelector('.countries')
+
+// const renderCountry = function(data,className = ''){
+//   const html = `
+//   <article class="country ${className}">
+//           <img class="country__img" src="${data.flag}" />
+//           <div class="country__data">
+//             <h3 class="country__name">${data.name}</h3>
+//             <h4 class="country__region">${data.region}</h4>
+//             <p class="country__row"><span>👫</span>${(+data.population / 1000000).toFixed(1)}</p>
+//             <p class="country__row"><span>🗣️</span>${data.languages[0].name}</p>
+//             <p class="country__row"><span>💰</span>${data.currencies[0].name}</p>
+//           </div>
+//         </article>`
+//         countriesContainer.insertAdjacentHTML("beforeend",html);
+//         countriesContainer.style.opacity = 1;
+// }
+
+// const request = fetch("https://restcountries.com/v2/name/iran")
+// console.log(request);
+
+// const getCountryData = function(country){
+//   fetch(`https://restcountries.com/v2/name/${country}`).then(response => response.json()).then(data => renderCountry(data[0]));
+// }
+// getCountryData('portugal')
+// // in here we write the getCountry function using the fetch method and more shorter than the last one
+
+// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+// // << Chaining promises >>
+
+// "use strict";
+// const btn = document.querySelector(".btn-country");
+// const countriesContainer = document.querySelector(".countries");
+// const renderCountry = function (data, className = "") {
+//   const html = `
+//     <article class="country ${className}">
+//             <img class="country__img" src="${data.flag}" />
+//             <div class="country__data">
+//               <h3 class="country__name">${data.name}</h3>
+//               <h4 class="country__region">${data.region}</h4>
+//               <p class="country__row"><span>👫</span>${(
+//                 +data.population / 1000000
+//               ).toFixed(1)}</p>
+//               <p class="country__row"><span>🗣️</span>${
+//                 data.languages[0].name
+//               }</p>
+//               <p class="country__row"><span>💰</span>${
+//                 data.currencies[0].name
+//               }</p>
+//             </div>
+//           </article>`;
+//   countriesContainer.insertAdjacentHTML("beforeend", html);
+//   countriesContainer.style.opacity = 1;
+// };
+// const getCountryData = function (country) {
+//   // Country 1
+//   fetch(`https://restcountries.com/v2/name/${country}`)
+//     .then((response) => response.json())
+//     .then((data) => {
+//       renderCountry(data[0]);
+//       const neighbour = data[0].borders[0];
+//       if (!neighbour) return;
+
+//       // Country 2
+//       return fetch(`https://restcountries.com/v2/alpha/${neighbour}`);
+//     })
+//     .then((response) => response.json())
+//     .then((data) => renderCountry(data, "neighbour"));
+// };
+// getCountryData("portugal");
+
+// // we just rewrite the last codes that we written using the XMLHttpRequest using chaining fetch methods
+
+// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+// << Handling rejected promises >>
+
+"use strict";
+const btn = document.querySelector(".btn-country");
+const countriesContainer = document.querySelector(".countries");
+
+const renderError = function(msg){
+  countriesContainer.insertAdjacentHTML('beforeend',msg);
+  countriesContainer.style.opacity = 1;
+}
+const renderCountry = function (data, className = "") {
+  const html = `
+    <article class="country ${className}">
+            <img class="country__img" src="${data.flag}" />
+            <div class="country__data">
+              <h3 class="country__name">${data.name}</h3>
+              <h4 class="country__region">${data.region}</h4>
+              <p class="country__row"><span>👫</span>${(
+                +data.population / 1000000
+              ).toFixed(1)}</p>
+              <p class="country__row"><span>🗣️</span>${
+                data.languages[0].name
+              }</p>
+              <p class="country__row"><span>💰</span>${
+                data.currencies[0].name
+              }</p>
+            </div>
+          </article>`;
+  countriesContainer.insertAdjacentHTML("beforeend", html);
+  countriesContainer.style.opacity = 1;
+};
+const getCountryData = function (country) {
+  // Country 1
+  fetch(`https://restcountries.com/v2/name/${country}`)
+    .then((response) => response.json())
+    .then((data) => {
+      renderCountry(data[0]);
+      const neighbour = data[0].borders[0];
+      if (!neighbour) return;
+
+      // Country 2
+      return fetch(`https://restcountries.com/v2/alpha/${neighbour}`);
+    })
+    .then((response) => response.json())
+    .then((data) => renderCountry(data, "neighbour")).catch((err) =>
+    {
+     console.error(`${err} 💥💥💥 `);
+    renderError(`Something went wrong 💥💥 ${err.message}. Try again!`)
+    })
+};
+btn.addEventListener("click", function () {
+  getCountryData("portugal");
+});
+
+// 11 minutes to the video has been watched
