@@ -285,58 +285,67 @@
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-// << Handling rejected promises >>
+// // << Handling rejected promises >>
 
-"use strict";
-const btn = document.querySelector(".btn-country");
-const countriesContainer = document.querySelector(".countries");
+// "use strict";
+// const btn = document.querySelector(".btn-country");
+// const countriesContainer = document.querySelector(".countries");
 
-const renderError = function(msg){
-  countriesContainer.insertAdjacentHTML('beforeend',msg);
-  countriesContainer.style.opacity = 1;
-}
-const renderCountry = function (data, className = "") {
-  const html = `
-    <article class="country ${className}">
-            <img class="country__img" src="${data.flag}" />
-            <div class="country__data">
-              <h3 class="country__name">${data.name}</h3>
-              <h4 class="country__region">${data.region}</h4>
-              <p class="country__row"><span>👫</span>${(
-                +data.population / 1000000
-              ).toFixed(1)}</p>
-              <p class="country__row"><span>🗣️</span>${
-                data.languages[0].name
-              }</p>
-              <p class="country__row"><span>💰</span>${
-                data.currencies[0].name
-              }</p>
-            </div>
-          </article>`;
-  countriesContainer.insertAdjacentHTML("beforeend", html);
-  countriesContainer.style.opacity = 1;
-};
-const getCountryData = function (country) {
-  // Country 1
-  fetch(`https://restcountries.com/v2/name/${country}`)
-    .then((response) => response.json())
-    .then((data) => {
-      renderCountry(data[0]);
-      const neighbour = data[0].borders[0];
-      if (!neighbour) return;
+// const renderError = function(msg){
+//   countriesContainer.insertAdjacentHTML('beforeend',msg);
+// }
+// const renderCountry = function (data, className = "") {
+//   const html = `
+//     <article class="country ${className}">
+//             <img class="country__img" src="${data.flag}" />
+//             <div class="country__data">
+//               <h3 class="country__name">${data.name}</h3>
+//               <h4 class="country__region">${data.region}</h4>
+//               <p class="country__row"><span>👫</span>${(
+//                 +data.population / 1000000
+//               ).toFixed(1)}</p>
+//               <p class="country__row"><span>🗣️</span>${
+//                 data.languages[0].name
+//               }</p>
+//               <p class="country__row"><span>💰</span>${
+//                 data.currencies[0].name
+//               }</p>
+//             </div>
+//           </article>`;
+//   countriesContainer.insertAdjacentHTML("beforeend", html);
+// };
+// const getCountryData = function (country) {
+//   // Country 1
+//   fetch(`https://restcountries.com/v2/name/${country}`)
+//     .then((response) => response.json())
+//     .then((data) => {
+//       renderCountry(data[0]);
+//       const neighbour = data[0].borders[0];
+//       if (!neighbour) return;
 
-      // Country 2
-      return fetch(`https://restcountries.com/v2/alpha/${neighbour}`);
-    })
-    .then((response) => response.json())
-    .then((data) => renderCountry(data, "neighbour")).catch((err) =>
-    {
-     console.error(`${err} 💥💥💥 `);
-    renderError(`Something went wrong 💥💥 ${err.message}. Try again!`)
-    })
-};
-btn.addEventListener("click", function () {
-  getCountryData("portugal");
-});
+//       // Country 2
+//       return fetch(`https://restcountries.com/v2/alpha/${neighbour}`);
+//     })
+//     .then((response) => response.json())
+//     .then((data) => renderCountry(data, "neighbour")).catch((err) =>
+//     {
+//      console.error(`${err} 💥💥💥 `);
+//     renderError(`Something went wrong 💥💥 ${err.message}. Try again!`)
+//     }).finally(() => {
+//       // this method will get used for spinners 
+//       countriesContainer.style.opacity = 1;
+      
+//       // in the finally method no matter if the promise is fullfield or rejected the callback function inside the method 
 
-// 11 minutes to the video has been watched
+//       // this works cause catch itself also returns a promise
+//     })
+// };
+// btn.addEventListener("click", function () {
+//   getCountryData("portugal");
+// });
+
+// getCountryData("gksnkgsngis") // when we have a error like this we get a weird error showing on the screen and we want to only tell the user that the country wasnt found so what we must do?? SEE IN THE NEXT VIDEO
+
+// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+// << 
