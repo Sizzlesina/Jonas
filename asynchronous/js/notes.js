@@ -417,7 +417,7 @@
 
 // // << Coding Challenge #1 >>
 
-// /* 
+// /*
 // In this challenge you will build a function 'whereAmI' which renders a country ONLY based on GPS coordinates. For that, you will use a second API to geocode coordinates.
 
 // Here are your tasks:
@@ -493,3 +493,57 @@
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 // << Asynchronous behind the scene >>
+
+// just some descriptions that i can find out later in the sites but now i just watched it
+
+// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+// << Consuming promises with Async/Await >>
+const countryContainer = document.querySelector(".countries");
+const btn = document.querySelector(".btn-country");
+const renderCountry = function (data, className = "") {
+  const html = `<article class="country ${className}">
+                <img class="country__img" src="${data.flag}" />
+                <div class="country__data">
+                  <h3 class="country__name">${data.name}</h3>
+                  <h4 class="country__region">${data.region}</h4>
+                  <p class="country__row"><span>👫</span>${(
+                    +data.population / 1000000
+                  ).toFixed(1)}</p>
+                  <p class="country__row"><span>🗣️</span>${
+                    data.languages[0].name
+                  }</p>
+                  <p class="country__row"><span>💰</span>${
+                    data.currencies[0].name
+                  }</p>
+                </div>
+              </article>`;
+  countryContainer.insertAdjacentHTML("beforeend", html);
+  countryContainer.style.opacity = 1;
+};
+const geoPosition = function () {
+  return new Promise(function (resolve, reject) {
+    navigator.geolocation.getCurrentPosition(resolve, reject);
+  });
+};
+const whereAmI = async function (country) {
+  // this function will keep running in the background while performing the code inside of it then when the function is done it automatically returns a promise
+  const pos = await geoPosition();
+  const { latitude: lat, longtitude: lng } = pos.coords;
+  const resGeo = fetch(`https//geocode.xyz/${lat},${lng}?geoit=json`);
+  const dataGeo = (await resGeo).json();
+  console.log(dataGeo);
+
+  const res = await fetch(`https://restcountries.com/v2/name/${country}`);
+  console.log(res);
+  const data = await res.json();
+  console.log(data);
+  renderCountry(data[0]);
+  //  // the line of code above is exactly as same as writing the function like this:
+  //  fetch(`https://restcountries.com/v2/name/${country}`).then(res => console.log(res))
+};
+whereAmI();
+console.log("__ FIRST __");
+// this function is a asynchronous function but it looks like a synchronous function
+
+// async await methods can be used inside the then method ?? i dont know i might check
