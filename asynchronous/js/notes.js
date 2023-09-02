@@ -549,3 +549,142 @@
 // // async await methods can be used inside the then method ?? YES WE CAN
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+// // Error handling with try... catch >>
+
+// 'use strict';
+// const countryContainer = document.querySelector(".countries");
+// const btn = document.querySelector(".btn-country");
+// const renderCountry = function (data, className = "") {
+//   const html = `<article class="country ${className}">
+//                 <img class="country__img" src="${data.flag}" />
+//                 <div class="country__data">
+//                   <h3 class="country__name">${data.name}</h3>
+//                   <h4 class="country__region">${data.region}</h4>
+//                   <p class="country__row"><span>👫</span>${(
+//                     +data.population / 1000000
+//                   ).toFixed(1)}</p>
+//                   <p class="country__row"><span>🗣️</span>${
+//                     data.languages[0].name
+//                   }</p>
+//                   <p class="country__row"><span>💰</span>${
+//                     data.currencies[0].name
+//                   }</p>
+//                 </div>
+//               </article>`;
+//   countryContainer.insertAdjacentHTML("beforeend", html);
+//   countryContainer.style.opacity = 1;
+// };
+// const geoPosition = function () {
+//   return new Promise(function (resolve, reject) {
+//     navigator.geolocation.getCurrentPosition(resolve, reject);
+//   });
+// };
+// const whereAmI = async function () {
+//   try {
+//     // Geolocation
+//     const pos = await geoPosition();
+//     const { latitude: lat, longitude: lng } = pos.coords;
+
+//     // Reverse geocoding
+//     const resGeo = await fetch(`https://geocode.xyz/${lat},${lng}?geoit=json`);
+//     if (!resGeo.ok) throw new Error('Problem getting location data');
+
+//     const dataGeo = await resGeo.json();
+//     console.log(dataGeo);
+
+//     // Country data
+//     const res = await fetch(
+//       `https://restcountries.eu/rest/v2/name/${dataGeo.country}`
+//     );
+    
+//     // BUG in video:
+//     // if (!resGeo.ok) throw new Error('Problem getting country');
+    
+//     // FIX:
+//     if (!res.ok) throw new Error('Problem getting country');
+
+//     const data = await res.json();
+//     console.log(data);
+//     renderCountry(data[0]);
+//   } catch (err) {
+//     console.error(`${err} 💥`);
+//     renderError(`💥 ${err.message}`);
+//   }
+// };
+// // we use the try method to get any errors that happen inside of its block and then we use the catch method on it to catch the errors and then show it as the way as we want  
+// // i think the try catch method is getting used for when we load too fast and the data isnt getting loaded so we can show an error to the user interface part
+
+// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+// << Returning values from Async function >>
+'use strict';
+const countryContainer = document.querySelector(".countries");
+const btn = document.querySelector(".btn-country");
+const renderCountry = function (data, className = "") {
+  const html = `<article class="country ${className}">
+                <img class="country__img" src="${data.flag}" />
+                <div class="country__data">
+                  <h3 class="country__name">${data.name}</h3>
+                  <h4 class="country__region">${data.region}</h4>
+                  <p class="country__row"><span>👫</span>${(
+                    +data.population / 1000000
+                  ).toFixed(1)}</p>
+                  <p class="country__row"><span>🗣️</span>${
+                    data.languages[0].name
+                  }</p>
+                  <p class="country__row"><span>💰</span>${
+                    data.currencies[0].name
+                  }</p>
+                </div>
+              </article>`;
+  countryContainer.insertAdjacentHTML("beforeend", html);
+  countryContainer.style.opacity = 1;
+};
+const geoPosition = function () {
+  return new Promise(function (resolve, reject) {
+    navigator.geolocation.getCurrentPosition(resolve, reject);
+  });
+};
+const whereAmI = async function () {
+  try {
+    // Geolocation
+    const pos = await geoPosition();
+    const { latitude: lat, longitude: lng } = pos.coords;
+
+    // Reverse geocoding
+    const resGeo = await fetch(`https://geocode.xyz/${lat},${lng}?geoit=json`);
+    if (!resGeo.ok) throw new Error('Problem getting location data');
+
+    const dataGeo = await resGeo.json();
+    console.log(dataGeo);
+
+    // Country data
+    const res = await fetch(
+      `https://restcountries.eu/rest/v2/name/${dataGeo.country}`
+    );
+    
+    // BUG in video:
+    // if (!resGeo.ok) throw new Error('Problem getting country');
+    
+    // FIX:
+    if (!res.ok) throw new Error('Problem getting country');
+
+    const data = await res.json();
+    console.log(data);
+    renderCountry(data[0]);
+  } catch (err) {
+    console.error(`${err} 💥`);
+    renderError(`💥 ${err.message}`);
+  }
+};
+
+// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+// << Running promises in parallel >>
+
+// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+// Coding challenge #3 >>
+
+// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------
