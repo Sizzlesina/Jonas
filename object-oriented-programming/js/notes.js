@@ -573,7 +573,7 @@
 //     console.log(`Hey ${this.fullName}`);
 //   }
 //   get age(){
-//     return 2037 - this.birthYear;
+//     return 2037 - this._birthYear;
 //   }
 //   set fullName(name){
 //     if(name.includes(' ')) this._fullName = name;
@@ -704,7 +704,6 @@
 
 // // << Encapsulation _ Protected Properties and Methods >>
 
-
 // // in thhis section we want to make our data more private which we cant get access to them outside the class
 
 // 'use strict';
@@ -752,10 +751,9 @@
 // acc1._approveLoan(1000);
 // console.log(acc1.getMovements());
 // console.log(acc1);
-// console.log(acc1.pin); 
+// console.log(acc1.pin);
 
 // // we want to use a fake encapsulation using a convention
 // // using the "_" before the variable or function that we want to make it private will prevent to access to it from outside the class and somehow make it more private but in ES6 we simply doesnt have a thing called private accessing to the data (or maybe we have but still jonas didnt talk about it).
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
