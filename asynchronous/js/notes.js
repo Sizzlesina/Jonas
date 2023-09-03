@@ -499,6 +499,7 @@
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 // // << Consuming promises with Async/Await >>
+
 // const countryContainer = document.querySelector(".countries");
 // const btn = document.querySelector(".btn-country");
 // const renderCountry = function (data, className = "") {
@@ -597,10 +598,10 @@
 //     const res = await fetch(
 //       `https://restcountries.eu/rest/v2/name/${dataGeo.country}`
 //     );
-    
+
 //     // BUG in video:
 //     // if (!resGeo.ok) throw new Error('Problem getting country');
-    
+
 //     // FIX:
 //     if (!res.ok) throw new Error('Problem getting country');
 
@@ -612,72 +613,87 @@
 //     renderError(`💥 ${err.message}`);
 //   }
 // };
-// // we use the try method to get any errors that happen inside of its block and then we use the catch method on it to catch the errors and then show it as the way as we want  
+// // we use the try method to get any errors that happen inside of its block and then we use the catch method on it to catch the errors and then show it as the way as we want
 // // i think the try catch method is getting used for when we load too fast and the data isnt getting loaded so we can show an error to the user interface part
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-// << Returning values from Async function >>
-'use strict';
-const countryContainer = document.querySelector(".countries");
-const btn = document.querySelector(".btn-country");
-const renderCountry = function (data, className = "") {
-  const html = `<article class="country ${className}">
-                <img class="country__img" src="${data.flag}" />
-                <div class="country__data">
-                  <h3 class="country__name">${data.name}</h3>
-                  <h4 class="country__region">${data.region}</h4>
-                  <p class="country__row"><span>👫</span>${(
-                    +data.population / 1000000
-                  ).toFixed(1)}</p>
-                  <p class="country__row"><span>🗣️</span>${
-                    data.languages[0].name
-                  }</p>
-                  <p class="country__row"><span>💰</span>${
-                    data.currencies[0].name
-                  }</p>
-                </div>
-              </article>`;
-  countryContainer.insertAdjacentHTML("beforeend", html);
-  countryContainer.style.opacity = 1;
-};
-const geoPosition = function () {
-  return new Promise(function (resolve, reject) {
-    navigator.geolocation.getCurrentPosition(resolve, reject);
-  });
-};
-const whereAmI = async function () {
-  try {
-    // Geolocation
-    const pos = await geoPosition();
-    const { latitude: lat, longitude: lng } = pos.coords;
+// // << Returning values from Async function >>
+// 'use strict';
+// const countryContainer = document.querySelector(".countries");
+// const btn = document.querySelector(".btn-country");
+// const renderCountry = function (data, className = "") {
+//   const html = `<article class="country ${className}">
+//                 <img class="country__img" src="${data.flag}" />
+//                 <div class="country__data">
+//                   <h3 class="country__name">${data.name}</h3>
+//                   <h4 class="country__region">${data.region}</h4>
+//                   <p class="country__row"><span>👫</span>${(
+//                     +data.population / 1000000
+//                   ).toFixed(1)}</p>
+//                   <p class="country__row"><span>🗣️</span>${
+//                     data.languages[0].name
+//                   }</p>
+//                   <p class="country__row"><span>💰</span>${
+//                     data.currencies[0].name
+//                   }</p>
+//                 </div>
+//               </article>`;
+//   countryContainer.insertAdjacentHTML("beforeend", html);
+//   countryContainer.style.opacity = 1;
+// };
+// const geoPosition = function () {
+//   return new Promise(function (resolve, reject) {
+//     navigator.geolocation.getCurrentPosition(resolve, reject);
+//   });
+// };
+// const whereAmI = async function () {
+//   try {
+//     // Geolocation
+//     const pos = await geoPosition();
+//     const { latitude: lat, longitude: lng } = pos.coords;
 
-    // Reverse geocoding
-    const resGeo = await fetch(`https://geocode.xyz/${lat},${lng}?geoit=json`);
-    if (!resGeo.ok) throw new Error('Problem getting location data');
+//     // Reverse geocoding
+//     const resGeo = await fetch(`https://geocode.xyz/${lat},${lng}?geoit=json`);
+//     if (!resGeo.ok) throw new Error('Problem getting location data');
+//     const dataGeo = await resGeo.json();
 
-    const dataGeo = await resGeo.json();
-    console.log(dataGeo);
+//     // Country data
+//     const res = await fetch(
+//       `https://restcountries.eu/rest/v2/name/${dataGeo.country}`
+//     );
 
-    // Country data
-    const res = await fetch(
-      `https://restcountries.eu/rest/v2/name/${dataGeo.country}`
-    );
-    
-    // BUG in video:
-    // if (!resGeo.ok) throw new Error('Problem getting country');
-    
-    // FIX:
-    if (!res.ok) throw new Error('Problem getting country');
+//     // BUG in video:
+//     // if (!resGeo.ok) throw new Error('Problem getting country');
 
-    const data = await res.json();
-    console.log(data);
-    renderCountry(data[0]);
-  } catch (err) {
-    console.error(`${err} 💥`);
-    renderError(`💥 ${err.message}`);
-  }
-};
+//     // FIX:
+//     if (!res.ok) throw new Error('Problem getting country');
+//     const data = await res.json();
+//     renderCountry(data[0]);
+//     return `You are in ${dataGeo.city},${dataGeo.country}`
+//   } catch (err) {
+//     console.error(`${err} 💥`);
+//     renderError(`💥 ${err.message}`);
+
+//     // Reject promise returned from async function
+//     throw err;
+//   }
+// };
+// console.log(`1: Will get location`);
+// // const city = whereAmI();
+// // console.log(city);
+
+// // whereAmI().then(city => console.log(city)).catch(err => console.log(`2:${err.message} 💥`)).finally( () => console.log('3: Finished getting location'));
+
+// (async function(){
+//   try{
+//     const city = await whereAmI();
+//     console.log(`2: ${city}`);
+//   }catch(err){
+//     console.error(`2: ${err.message}`);
+//   }
+//   console.log(`3: Finished getting location`);
+// })();
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -688,3 +704,138 @@ const whereAmI = async function () {
 // Coding challenge #3 >>
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+// // << Building a simple promise >>
+
+// "use strict";
+// const lotteryPromise = new Promise(function (resolve, reject) {
+//   console.log(`Lottery draw is happening 🔮`);
+//   setTimeout(() => {
+//     if (Math.random() <= 0.5) {
+//       resolve("You WIN 💰");
+//     } else {
+//       reject(new Error("You lost your money 💩"));
+//     }
+//   }, 2000);
+// });
+// lotteryPromise
+//   .then((response) => console.log(response))
+//   .catch((err) => console.error(err));
+
+// // Promisifying setTimeout
+// const wait = function (seconds) {
+//   return new Promise((resolve) => setTimeout(resolve, seconds * 1000));
+// };
+// wait(2)
+//   .then(() => {
+//     console.log(`2 second passed`);
+//     return wait(1);
+//   })
+//   .then(() => console.log(`3 second passed`))
+//   .then(() => console.log(`4 second passed`)); // *
+// // this function here will work exactly as same as the function beyond
+// //---------------------------------------------------
+// //  setTimeout(() => { // *
+// //   console.log(`1 second passed`);
+// //   setTimeout(() => {
+// //     console.log(`2 second passed`);
+// //     setTimeout(() => {
+// //       console.log(`3 second passed`);
+// //       setTimeout(() => {
+// //         console.log(`4 second passed`);
+// //       },1000)
+// //     },1000)
+// //   },1000)
+// // },1000)
+
+// Promise.resolve("abc").then((x) => console.log(x));
+// Promise.reject(new Error("Problem!")).catch((x) => console.error(x));
+
+// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+// // << Promisifying the Geolocation >>
+
+// // // there's two way of writing the first function in this video:
+
+// // // FIRST WAY OF WRITING THIS FUNCTION:
+// // const getPosition = function () {
+// //   return new Promise(function (resolve, reject) {
+// //     navigator.geolocation.getCurrentPosition(
+// //       (position) => resolve(position),
+// //       (error) => reject(error)
+// //     );
+// //   });
+// // };
+
+
+// // // SECOND WAY OF WRITING THIS FUNCTION:
+// // const getPosition = function () {
+// //   return new Promise(function (resolve, reject) {
+// //     navigator.geolocation.getCurrentPosition(resolve, reject);
+// //   });
+// // };
+
+
+// // we want to rewrite the whereAmI function but this time using the geolocation of our device and not an external API\
+
+// ("use strict");
+
+// const btn = document.querySelector(".btn-country");
+// const getPosition = function () {
+//   return new Promise(function (resolve, reject) {
+//     navigator.geolocation.getCurrentPosition(resolve, reject);
+//   });
+// };
+// const renderCountry = function (data, className = "") {
+//     const html = `<article class="country ${className}">
+//                   <img class="country__img" src="${data.flag}" />
+//                   <div class="country__data">
+//                     <h3 class="country__name">${data.name}</h3>
+//                     <h4 class="country__region">${data.region}</h4>
+//                     <p class="country__row"><span>👫</span>${(
+//                       +data.population / 1000000
+//                     ).toFixed(1)}</p>
+//                     <p class="country__row"><span>🗣️</span>${
+//                       data.languages[0].name
+//                     }</p>
+//                     <p class="country__row"><span>💰</span>${
+//                       data.currencies[0].name
+//                     }</p>
+//                   </div>
+//                 </article>`;
+//     countryContainer.insertAdjacentHTML("beforeend", html);
+//     countryContainer.style.opacity = 1;
+//   };
+// const whereAmI = function () {
+//   getPosition()
+//     .then((pos) => {
+//       const { latitude: lat, longitude: lng } = pos.coords;
+
+//       return fetch(`https://geocode.xyz/${lat},${lng}?geoit=json`);
+//     })
+//     .then((res) => {
+//       if (!res.ok) throw new Error(`Problem with geocoding ${res.status}`);
+//       return res.json();
+//     })
+//     .then((data) => {
+//       console.log(data);
+//       console.log(`You are in ${data.city}, ${data.country}`);
+
+//       return fetch(`https://restcountries.eu/rest/v2/name/${data.country}`);
+//     })
+//     .then((res) => {
+//       if (!res.ok) throw new Error(`Country not found (${res.status})`);
+
+//       return res.json();
+//     })
+//     .then((data) => renderCountry(data[0]))
+//     .catch((err) => console.error(`${err.message} 💥`));
+// };
+
+// btn.addEventListener("click",whereAmI);
+// // NOTE : The API's in this video are not working (because of the good networking stuff you know..?)
+
+// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+// << Coding challenge #2 >>
+

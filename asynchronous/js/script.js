@@ -473,7 +473,7 @@ const whereAmI = async function () {
     // Reverse geocoding
     const resGeo = await fetch(`https://geocode.xyz/${lat},${lng}?geoit=json`);
     if (!resGeo.ok) throw new Error('Problem getting location data');
-
+ 
     const dataGeo = await resGeo.json();
     console.log(dataGeo);
 
