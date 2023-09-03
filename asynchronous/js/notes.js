@@ -498,6 +498,207 @@
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+// // << Building a simple promise >>
+
+// "use strict";
+// const lotteryPromise = new Promise(function (resolve, reject) {
+//   console.log(`Lottery draw is happening 🔮`);
+//   setTimeout(() => {
+//     if (Math.random() <= 0.5) {
+//       resolve("You WIN 💰");
+//     } else {
+//       reject(new Error("You lost your money 💩"));
+//     }
+//   }, 2000);
+// });
+// lotteryPromise
+//   .then((response) => console.log(response))
+//   .catch((err) => console.error(err));
+
+// // Promisifying setTimeout
+// const wait = function (seconds) {
+//   return new Promise((resolve) => setTimeout(resolve, seconds * 1000));
+// };
+// wait(2)
+//   .then(() => {
+//     console.log(`2 second passed`);
+//     return wait(1);
+//   })
+//   .then(() => console.log(`3 second passed`))
+//   .then(() => console.log(`4 second passed`)); // *
+// // this function here will work exactly as same as the function beyond
+// //---------------------------------------------------
+// //  setTimeout(() => { // *
+// //   console.log(`1 second passed`);
+// //   setTimeout(() => {
+// //     console.log(`2 second passed`);
+// //     setTimeout(() => {
+// //       console.log(`3 second passed`);
+// //       setTimeout(() => {
+// //         console.log(`4 second passed`);
+// //       },1000)
+// //     },1000)
+// //   },1000)
+// // },1000)
+
+// Promise.resolve("abc").then((x) => console.log(x));
+// Promise.reject(new Error("Problem!")).catch((x) => console.error(x));
+
+// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+// // << Promisifying the Geolocation >>
+
+// // // there's two way of writing the first function in this video:
+
+// // // FIRST WAY OF WRITING THIS FUNCTION:
+// // const getPosition = function () {
+// //   return new Promise(function (resolve, reject) {
+// //     navigator.geolocation.getCurrentPosition(
+// //       (position) => resolve(position),
+// //       (error) => reject(error)
+// //     );
+// //   });
+// // };
+
+// // // SECOND WAY OF WRITING THIS FUNCTION:
+// // const getPosition = function () {
+// //   return new Promise(function (resolve, reject) {
+// //     navigator.geolocation.getCurrentPosition(resolve, reject);
+// //   });
+// // };
+
+// // we want to rewrite the whereAmI function but this time using the geolocation of our device and not an external API\
+
+// ("use strict");
+
+// const btn = document.querySelector(".btn-country");
+// const getPosition = function () {
+//   return new Promise(function (resolve, reject) {
+//     navigator.geolocation.getCurrentPosition(resolve, reject);
+//   });
+// };
+// const renderCountry = function (data, className = "") {
+//     const html = `<article class="country ${className}">
+//                   <img class="country__img" src="${data.flag}" />
+//                   <div class="country__data">
+//                     <h3 class="country__name">${data.name}</h3>
+//                     <h4 class="country__region">${data.region}</h4>
+//                     <p class="country__row"><span>👫</span>${(
+//                       +data.population / 1000000
+//                     ).toFixed(1)}</p>
+//                     <p class="country__row"><span>🗣️</span>${
+//                       data.languages[0].name
+//                     }</p>
+//                     <p class="country__row"><span>💰</span>${
+//                       data.currencies[0].name
+//                     }</p>
+//                   </div>
+//                 </article>`;
+//     countryContainer.insertAdjacentHTML("beforeend", html);
+//     countryContainer.style.opacity = 1;
+//   };
+// const whereAmI = function () {
+//   getPosition()
+//     .then((pos) => {
+//       const { latitude: lat, longitude: lng } = pos.coords;
+
+//       return fetch(`https://geocode.xyz/${lat},${lng}?geoit=json`);
+//     })
+//     .then((res) => {
+//       if (!res.ok) throw new Error(`Problem with geocoding ${res.status}`);
+//       return res.json();
+//     })
+//     .then((data) => {
+//       console.log(data);
+//       console.log(`You are in ${data.city}, ${data.country}`);
+
+//       return fetch(`https://restcountries.eu/rest/v2/name/${data.country}`);
+//     })
+//     .then((res) => {
+//       if (!res.ok) throw new Error(`Country not found (${res.status})`);
+
+//       return res.json();
+//     })
+//     .then((data) => renderCountry(data[0]))
+//     .catch((err) => console.error(`${err.message} 💥`));
+// };
+
+// btn.addEventListener("click",whereAmI);
+// // NOTE : The API's in this video are not working (because of the good networking stuff you know..?)
+
+// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+// // << Coding challenge #2 >>
+
+// /*
+// Build the image loading functionality that I just showed you on the screen.
+
+// Tasks are not super-descriptive this time, so that you can figure out some stuff on your own. Pretend you're working on your own 😉
+
+// PART 1
+// 1. Create a function 'createImage' which receives imgPath as an input. This function returns a promise which creates a new image (use document.createElement('img')) and sets the .src attribute to the provided image path. When the image is done loading, append it to the DOM element with the 'images' class, and resolve the promise. The fulfilled value should be the image element itself. In case there is an error loading the image ('error' event), reject the promise.
+
+// If this part is too tricky for you, just watch the first part of the solution.
+
+// PART 2
+// 2. Comsume the promise using .then and also add an error handler;
+// 3. After the image has loaded, pause execution for 2 seconds using the wait function we created earlier;
+// 4. After the 2 seconds have passed, hide the current image (set display to 'none'), and load a second image (HINT: Use the image element returned by the createImage promise to hide the current image. You will need a global variable for that 😉);
+// 5. After the second image has loaded, pause execution for 2 seconds again;
+// 6. After the 2 seconds have passed, hide the current image.
+
+// TEST DATA: Images in the img folder. Test the error handler by passing a wrong image path. Set the network speed to 'Fast 3G' in the dev tools Network tab, otherwise images load too fast.
+
+// GOOD LUCK 😀
+// */
+
+// "use strict";
+// const imgContainer = document.querySelector(".images");
+// const wait = function (seconds) {
+//   return new Promise(function (resolve, reject) {
+//     setTimeout(resolve, seconds * 1000);
+//   });
+// };
+// const createImage = function (imgPath) {
+//   return new Promise(function (resolve, reject) {
+//     const img = document.createElement("img");
+//     img.src = imgPath;
+
+//     img.addEventListener("load", function () {
+//       imgContainer.append(img);
+//       resolve(img);
+//     });
+//     img.addEventListener("error", function () {
+//       reject(new Error("Image not found!"));
+//     });
+//   });
+// };
+
+// let currentImg;
+// createImage('pic/img-1.jpg')
+//   .then(img => {
+//     currentImg = img;
+//     console.log('Image 1 loaded');
+//     return wait(2);
+//   })
+//   .then(() => {
+//     currentImg.style.display = 'none';
+//     return createImage('pic/img-2.jpg');
+//   })
+//   .then(img => {
+//     currentImg = img;
+//     console.log('Image 2 loaded');
+//     return wait(2);
+//   })
+//   .then(() => {
+//     currentImg.style.display = 'none';
+//   })
+//   .catch(err => console.error(err));
+
+// // im getting some kind of confused right now 
+
+// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 // // << Consuming promises with Async/Await >>
 
 // const countryContainer = document.querySelector(".countries");
@@ -697,145 +898,34 @@
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-// << Running promises in parallel >>
+// // << Running promises in parallel >>
 
-// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-// Coding challenge #3 >>
-
-// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-// // << Building a simple promise >>
+// // in this video we want to get data from 3 countries at the sane time but in which the oreder that the data arrives does not matter at all
 
 // "use strict";
-// const lotteryPromise = new Promise(function (resolve, reject) {
-//   console.log(`Lottery draw is happening 🔮`);
-//   setTimeout(() => {
-//     if (Math.random() <= 0.5) {
-//       resolve("You WIN 💰");
-//     } else {
-//       reject(new Error("You lost your money 💩"));
-//     }
-//   }, 2000);
-// });
-// lotteryPromise
-//   .then((response) => console.log(response))
-//   .catch((err) => console.error(err));
+// const getJSON = function (url, errorMsg = "Something went wrong!") {
+//   return fetch(url).then((response) => {
+//     if (!response.ok) throw new Error(`${errorMsg} (${response.status})`);
 
-// // Promisifying setTimeout
-// const wait = function (seconds) {
-//   return new Promise((resolve) => setTimeout(resolve, seconds * 1000));
-// };
-// wait(2)
-//   .then(() => {
-//     console.log(`2 second passed`);
-//     return wait(1);
-//   })
-//   .then(() => console.log(`3 second passed`))
-//   .then(() => console.log(`4 second passed`)); // *
-// // this function here will work exactly as same as the function beyond
-// //---------------------------------------------------
-// //  setTimeout(() => { // *
-// //   console.log(`1 second passed`);
-// //   setTimeout(() => {
-// //     console.log(`2 second passed`);
-// //     setTimeout(() => {
-// //       console.log(`3 second passed`);
-// //       setTimeout(() => {
-// //         console.log(`4 second passed`);
-// //       },1000)
-// //     },1000)
-// //   },1000)
-// // },1000)
-
-// Promise.resolve("abc").then((x) => console.log(x));
-// Promise.reject(new Error("Problem!")).catch((x) => console.error(x));
-
-// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-// // << Promisifying the Geolocation >>
-
-// // // there's two way of writing the first function in this video:
-
-// // // FIRST WAY OF WRITING THIS FUNCTION:
-// // const getPosition = function () {
-// //   return new Promise(function (resolve, reject) {
-// //     navigator.geolocation.getCurrentPosition(
-// //       (position) => resolve(position),
-// //       (error) => reject(error)
-// //     );
-// //   });
-// // };
-
-
-// // // SECOND WAY OF WRITING THIS FUNCTION:
-// // const getPosition = function () {
-// //   return new Promise(function (resolve, reject) {
-// //     navigator.geolocation.getCurrentPosition(resolve, reject);
-// //   });
-// // };
-
-
-// // we want to rewrite the whereAmI function but this time using the geolocation of our device and not an external API\
-
-// ("use strict");
-
-// const btn = document.querySelector(".btn-country");
-// const getPosition = function () {
-//   return new Promise(function (resolve, reject) {
-//     navigator.geolocation.getCurrentPosition(resolve, reject);
+//     return response.json();
 //   });
 // };
-// const renderCountry = function (data, className = "") {
-//     const html = `<article class="country ${className}">
-//                   <img class="country__img" src="${data.flag}" />
-//                   <div class="country__data">
-//                     <h3 class="country__name">${data.name}</h3>
-//                     <h4 class="country__region">${data.region}</h4>
-//                     <p class="country__row"><span>👫</span>${(
-//                       +data.population / 1000000
-//                     ).toFixed(1)}</p>
-//                     <p class="country__row"><span>🗣️</span>${
-//                       data.languages[0].name
-//                     }</p>
-//                     <p class="country__row"><span>💰</span>${
-//                       data.currencies[0].name
-//                     }</p>
-//                   </div>
-//                 </article>`;
-//     countryContainer.insertAdjacentHTML("beforeend", html);
-//     countryContainer.style.opacity = 1;
-//   };
-// const whereAmI = function () {
-//   getPosition()
-//     .then((pos) => {
-//       const { latitude: lat, longitude: lng } = pos.coords;
-
-//       return fetch(`https://geocode.xyz/${lat},${lng}?geoit=json`);
-//     })
-//     .then((res) => {
-//       if (!res.ok) throw new Error(`Problem with geocoding ${res.status}`);
-//       return res.json();
-//     })
-//     .then((data) => {
-//       console.log(data);
-//       console.log(`You are in ${data.city}, ${data.country}`);
-
-//       return fetch(`https://restcountries.eu/rest/v2/name/${data.country}`);
-//     })
-//     .then((res) => {
-//       if (!res.ok) throw new Error(`Country not found (${res.status})`);
-
-//       return res.json();
-//     })
-//     .then((data) => renderCountry(data[0]))
-//     .catch((err) => console.error(`${err.message} 💥`));
+// const get3Countries = async function (c1, c2, c3) {
+//   try {
+//     const data = await Promise.all([
+//       getJSON(`https://restcountries.com/v2/name/${c1}`),
+//       getJSON(`https://restcountries.com/v2/name/${c2}`),
+//       getJSON(`https://restcountries.com/v2/name/${c3}`),
+//     ]);
+//     console.log(data.map((d) => d[0].capital));
+//   } catch (err) {
+//     console.error(err);
+//   }
 // };
-
-// btn.addEventListener("click",whereAmI);
-// // NOTE : The API's in this video are not working (because of the good networking stuff you know..?)
+// get3Countries("portugal", "canada", "tanzania");
+// // THIS PART IS SO IMPORTANT
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-// << Coding challenge #2 >>
+// << Other promise combinations  >>
 

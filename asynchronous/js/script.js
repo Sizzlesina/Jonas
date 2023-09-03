@@ -415,7 +415,7 @@ const imgContainer = document.querySelector('.images');
 
 const createImage = function (imgPath) {
   return new Promise(function (resolve, reject) {
-    const img = document.createElement('img');
+    const img = document.createElement('img');  `
     img.src = imgPath;
 
     img.addEventListener('load', function () {
