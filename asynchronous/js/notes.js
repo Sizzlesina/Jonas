@@ -695,7 +695,7 @@
 //   })
 //   .catch(err => console.error(err));
 
-// // im getting some kind of confused right now 
+// // im getting some kind of confused right now
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -927,5 +927,153 @@
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-// << Other promise combinations  >>
+// // << Other promise combinations  >>
 
+// // Promise.race => Like other combinators receives an array of promises and it als returns a promise
+
+// const getJSON = function (url, errorMsg = "Something went wrong!") {
+//   return fetch(url).then((response) => {
+//     if (!response.ok) throw new Error(`${errorMsg} (${response.status})`);
+
+//     return response.json();
+//   });
+// };
+// // Promise.race
+// (async function () {
+//   const res = await Promise.race([
+//     getJSON(`https://restcountries.com/v2/name/italy`),
+//     getJSON(`https://restcountries.com/v2/name/egypt`),
+//     getJSON(`https://restcountries.com/v2/name/mexico`),
+//   ]);
+//   console.log(res[0]);
+// })();
+
+// const timeout = function (sec) {
+//   return new Promise(function (_, reject) {
+//     setTimeout(function () {
+//       reject(new Error(`Request took too long!`));
+//     }, sec);
+//   });
+// };
+
+// Promise.race([
+//   getJSON(`https://restcountries.com/v2/name/tanzania`),
+//   timeout(20),
+// ]).then(
+//   (res) => console.log(res[0]),
+//   (err) => console.error(err)
+// );
+
+// // Promise.allSettled => it takes a array of promises and it will return an array of all the settled promises no matter the promise got rejected or not
+
+// // this method is simillar to the promise.all in regard that it also returns an array of all the results but the difference is that the promise.all will short cicuit as soon as one promise rejects but Promise.allSettled simply never short cicuits so it will simply retuns all the results of all the promises
+
+// Promise.allSettled([
+//   Promise.resolve("Success"),
+//   Promise.reject("ERROR"),
+//   Promise.resolve("Anothe rSuccess"),
+// ]).then(res => console.log(res));
+
+// // this method will check for the reject and then returns the rejected one
+// Promise.all([
+//   Promise.resolve("Success"),
+//   Promise.reject("ERROR"),
+//   Promise.resolve("Anothe rSuccess"),
+// ]).then(res => console.log(res)).catch(err => console.error(err));
+
+// // Promise.any [ES2021] => it will takes an array of Promises, and returns a new Promise that resolves with the value of the first fulfilled Promise in the array.
+
+// Promise.any([
+//   Promise.resolve("Success"),
+//   Promise.reject("ERROR"),
+//   Promise.resolve("Anothe rSuccess"),
+// ]).then(res => console.log(res)).catch(err => console.error(err));
+
+// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+// << Coding challenge #3 >>
+
+/* 
+PART 1
+Write an async function 'loadNPause' that recreates Coding Challenge #2, this time using async/await (only the part where the promise is consumed). Compare the two versions, think about the big differences, and see which one you like more.
+Don't forget to test the error handler, and to set the network speed to 'Fast 3G' in the dev tools Network tab.
+
+PART 2
+1. Create an async function 'loadAll' that receives an array of image paths 'imgArr';
+2. Use .map to loop over the array, to load all the images with the 'createImage' function (call the resulting array 'imgs')
+3. Check out the 'imgs' array in the console! Is it like you expected?
+4. Use a promise combinator function to actually get the images from the array 😉
+5. Add the 'paralell' class to all the images (it has some CSS styles).
+
+TEST DATA: ['img/img-1.jpg', 'img/img-2.jpg', 'img/img-3.jpg']. To test, turn off the 'loadNPause' function.
+
+GOOD LUCK 😀
+*/
+
+const imgContainer = document.querySelector(".images");
+const wait = function (second) {
+  return new Promise(function (resolve, reject) {
+    setTimeout(resolve, second * 1000);
+  });
+};
+
+const createImage = function (imgPath) {
+  return new Promise(function (resolve, reject) {
+    const image = document.createElement("img");
+    image.src = imgPath;
+
+    image.addEventListener("load", function () {
+      imgContainer.append(image);
+      resolve(image);
+    });
+    image.addEventListener("error", function () {
+      reject(new Error("Image not found!"));
+    });
+  });
+};
+
+// let currentImg;
+// createImage("pic/img-1.jpg").then(img =>{
+//   currentImg = img;
+//   console.log( "Image 1 loaded");
+//   return wait(2);
+// }).then(() =>{
+//   currentImg.style.display = "none";
+//   return createImage("pic/img-2.jpg");
+// }).then(img => {
+//   currentImg = img;
+//   console.log(`Image 2 loaded`);
+//   return wait(2);
+// }).then(() =>{
+//   currentImg.style.display = "none";
+// }).catch(err => console.error(err))
+
+const loadNPause = async function () {
+  try {
+    // Create image 1
+    let img = await createImage("pic/img-1.jpg");
+    console.log("Image 1 loaded");
+    await wait(2);
+    img.style.display = "none";
+    img = await createImage("pic/img-2.jpg");
+    console.log(`Image 2 loaded`);
+    await wait(2);
+    img.style.display = "none";
+  } catch (err) {
+    console.error(err);
+  }
+};
+loadNPause();
+// some cheat looking and the rest is by my own
+
+const loadAll = async function (imgArr) {
+  try {
+    const imgs = imgArr.map(async (img) => await createImage(img));
+    const imgsEl = await Promise.all(imgs);
+    console.log(imgsEl);
+    imgsEl.forEach((img) => img.classList.add("parallel"));
+  } catch (err) {
+    console.error(err);
+  }
+};
+loadAll(["pic/img-1.jpg", "pic/img-2.jpg", "pic/img-3.jpg"]);
