@@ -4,7 +4,8 @@
   "description": "",
   "main": "clean.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "parcel index.html",
+    "build": "parcel build index.html"
   },
   "author": "Sina",
   "license": "ISC",
@@ -12,5 +13,8 @@
     "leaflet": "^1.9.4",
     "lodash-es": "^4.17.21",
     "parcel": "^2.9.3"
+  },
+  "devDependencies": {
+    "@babel/preset-env": "^7.22.15"
   }
-}
+} 

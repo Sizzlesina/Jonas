@@ -91,24 +91,177 @@
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-// << Bundling with parcel and NPM Scripts >>
+// // << Bundling with parcel and NPM Scripts >>
 
-import cloneDeep from "lodash-es";
-const state = {
-  cart: [
-    { product: "bread", quantity: 5 },
-    { product: "pizza", quantity: 5 },
-  ],
-  User: { loggedIn: true },
-};
-const stateClone = Object.assign({}, state);
-const stateDeepClone = cloneDeep(state);
-state.User.loggedIn = false;
-console.log(stateClone);
+// import cloneDeep from "lodash-es";
+// const state = {
+//   cart: [
+//     { product: "bread", quantity: 5 },
+//     { product: "pizza", quantity: 5 },
+//   ],
+//   User: { loggedIn: true },
+// };
+// const stateClone = Object.assign({}, state);
+// const stateDeepClone = cloneDeep(state);
+// state.User.loggedIn = false;
+// console.log(stateClone);
 
-console.log(stateDeepClone);
-if (module.hot) {
-  module.hot.accept();
-}
-// this line of code is for when we change something in the vscode file the webPage wont get reloaded (whenever we testing out something)
+// console.log(stateDeepClone);
+// if (module.hot) {
+//   module.hot.accept();
+// }
+// // this line of code is for when we change something in the vscode file the webPage wont get reloaded (whenever we testing out something)
+
+// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+// << Review writing clean and modern javascript >>
+
+// we dont need to use the "use strict" syntax because with using packages it will use the strict mode by default
+
+// some description on how to write a clean code (i can check the javascript documentation later if i forgot)
+
+// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+// // << Let's fix some bad code >>
+
+// // get the unfixed codes from the jonas starter file in the github repository
+
+// const budget = [
+//   { value: 250, description: "Sold old TV 📺", user: "jonas" },
+//   { value: -45, description: "Groceries 🥑", user: "jonas" },
+//   { value: 3500, description: "Monthly salary 👩‍💻", user: "jonas" },
+//   { value: 300, description: "Freelancing 👩‍💻", user: "jonas" },
+//   { value: -1100, description: "New iPhone 📱", user: "jonas" },
+//   { value: -20, description: "Candy 🍭", user: "matilda" },
+//   { value: -125, description: "Toys 🚂", user: "matilda" },
+//   { value: -1800, description: "New Laptop 💻", user: "jonas" },
+// ];
+
+// const spendingLimits = {
+//   jonas: 1500,
+//   matilda: 100,
+// };
+// const getLimit = (user) => spendingLimits?.[user] ?? 0;
+
+// const addExpense = function (value, description, user = "jonas") {
+//   user = user.toLowerCase();
+
+//   const limit = getLimit(user);
+//   if (value <= getLimit(user)) {
+//     budget.push({ value: -value, description, user });
+//   }
+// };
+// addExpense(10, "Pizza 🍕");
+// addExpense(100, "Going to movies 🍿", "Matilda");
+// addExpense(200, "Stuff", "Jay");
+
+// const checkExpenses = function () {
+//   for (const entry of budget) {
+//     if (entry.value < -getLimit(entry.user)) entry.flag = "limit";
+//   }
+// };
+// checkExpenses();
+
+// const logBigExpenses = function (bigLimit) {
+//   let output = "";
+//   for (const entry of budget)
+//     output += entry.value <= bigLimit ? `${entry.description.slice(-2)} /` : "";
+
+//   output = output.slice(0, -2); // Remove last '/ '
+//   console.log(budget);
+// };
+
+// console.log(budget);
+// logBigExpenses(500);
+
+// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+// << Declative and functional javascript principles >>
+
+// some descriptions are said just listen then later check the javascript documentation
+
+// Functional programming technique:
+// 👉 Use buit-in methods that dont produce side effects
+// 👉 Do data transformations with methods such as .map() .filter() and .reduce()
+// 👉  Try to avoid data mutations
+// 👉 Try to avoid side effects in functions this is of course not always possible!
+
+// Declarative syntax:
+// 👉 Use array and object destructing]
+// 👉 Use the spread operator (...)
+// 👉 Use the ternary (conditional) operator
+// 👉 Use template literals
+
+// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+// // << Let's fix some bad code pt2 >>
+
+// "strict mode";
+
+
+// const budget = Object.freeze([
+//   { value: 250, description: "Sold old TV 📺", user: "jonas" },
+//   { value: -45, description: "Groceries 🥑", user: "jonas" },
+//   { value: 3500, description: "Monthly salary 👩‍💻", user: "jonas" },
+//   { value: 300, description: "Freelancing 👩‍💻", user: "jonas" },
+//   { value: -1100, description: "New iPhone 📱", user: "jonas" },
+//   { value: -20, description: "Candy 🍭", user: "matilda" },
+//   { value: -125, description: "Toys 🚂", user: "matilda" },
+//   { value: -1800, description: "New Laptop 💻", user: "jonas" },
+// ]);
+
+// const spendingLimits = Object.freeze({
+//   jonas : 1500,
+//   matilda : 100,
+// });
+
+// const getLimit =  (limits, user) => limits?.[user] ?? 0;
+
+// const addExpense = function(state,limits,value,description,user = "jonas"){
+//   const cleanUser = user.toLowerCase();
+
+//   return value <= getLimit(limits,cleanUser) ? [...state,{value : -value,description,user : cleanUser}] : state;
+// }
+
+// const newBudget1 = addExpense(budget,spendingLimits,10,"Pizza 🍕") 
+// const newBudget2 = addExpense(
+//   newBudget1,
+//   spendingLimits,
+//   100,
+//   'Going to movies 🍿',
+//   'Matilda'
+// );
+// const newBudget3 = addExpense(newBudget2, spendingLimits, 200, 'Stuff', 'Jay');
+
+// const checkExpenses = (state, limits) =>
+//   state.map(entry =>
+//     entry.value < -getLimit(limits, entry.user)
+//       ? { ...entry, flag: 'limit' }
+//       : entry
+//   );
+//   const finalBudget = checkExpenses(newBudget3, spendingLimits);
+// console.log(finalBudget);
+// // Impure 
+// const logBigExpenses = function (state, bigLimit) {
+//   const bigExpenses = state
+//     .filter(entry => entry.value <= -bigLimit)
+//     .map(entry => entry.description.slice(-2))
+//     .join(' / ');
+//   // .reduce((str, cur) => `${str} / ${cur.description.slice(-2)}`, '');
+
+//   console.log(bigExpenses);
+
+//   // let output = '';
+//   // for (const entry of budget)
+//   //   output +=
+//   //     entry.value <= -bigLimit ? `${entry.description.slice(-2)} / ` : '';
+//   // output = output.slice(0, -2); // Remove last '/ '
+//   // console.log(output);
+// };
+
+// logBigExpenses(finalBudget,500); 
+
+
+
+// the javascript course finally has come to end 
 
