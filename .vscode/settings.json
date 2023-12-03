@@ -1,6 +1,5 @@
 {
   "colorize.languages": [
-    
     "javascript",
     "html",
     "css",
@@ -12,5 +11,6 @@
     "stylus",
     "xml",
     "svg"
-  ]
+  ],
+  "editor.inlineSuggest.showToolbar": "onHover"
 }
